@@ -1,0 +1,2 @@
+PyYaml
+mailjet_rest
