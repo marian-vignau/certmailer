@@ -4,6 +4,7 @@ git clone repo
 cd certmail
 git clone certg
 
+![Bilby Stampede](doc/certmail.png)
 
 
 Create an account in MailJet, to send SMTP
