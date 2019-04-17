@@ -48,7 +48,38 @@ This will send every mail. If an email is successfully sent, all it's data'll
 move to «work/sent» folder, and a json with information of resulting
 email will be stored.
 
-Enjoy
+## Requirements
+
+- Python 3
+- PyYaml
+- mailjet-rest
+
+## Dev Instructions
+```
+- git clone git@github.com:marian-vignau/certmailer.git
+- virtualenv env
+- source env/bin/activate
+- pip install -r requirements.txt
+- git clone https://github.com/facundobatista/certg.git
+```
+
+## Contributing
+
+1. Fork it!
+2. Create your feature branch: `git checkout -b my-new-feature`
+3. Commit your changes: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin my-new-feature`
+5. Submit a pull request :D
+
+## TODO
+
+* Testing
+* Extend documentation
+* Digital signature
+
+## Credits
+
+* María Andrea Vignau
 
 
 
