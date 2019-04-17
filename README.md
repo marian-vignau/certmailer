@@ -1,7 +1,7 @@
 Certificates Mailer
 -------------------
 
-### **Automate** sending even's certificates by email.
+### **Automate** sending event's certificates by email.
 
 Uses exported information from  **EventoL**,
 generate **certificates in PDF**, and **mail them** to the corresponding
