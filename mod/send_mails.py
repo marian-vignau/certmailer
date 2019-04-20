@@ -62,7 +62,8 @@ def move_to_outbox(filename, suffix):
 
 
 def send_mails():
-    n = -1
+    n = 0
+    max_mails = 2
     for email_data in load_mails():
         attach = [load_attachment(f) for f in email_data["attach"]]
         k = email_template.format(**email_data)
@@ -75,12 +76,19 @@ def send_mails():
             move_to_outbox(email_data["filename"], "yaml")
             for filename in email_data["attach"]:
                 move_to_outbox(filename.lower(), "pdf")
-            with open(email_data["filename"] + ".json", "w") as fh:
-                fh.read(result.json)
+            attemp = 0
+            while True:
+                result_path = SENTMAIL.joinpath("Rep%03d-" % attemp + email_data["filename"] + ".yaml")
+                if result_path.exists():
+                    attemp += 1
+                else:
+                    break
 
+            with result_path.open("w") as fh:
+                fh.write(yaml.safe_dump(result.json()))
 
-        if n != 0:
-            n -= 1
-        else:
+        n += 1
+        if max_mails > 0 and n >= max_mails:
             break
-    print("Total {} mails sent".format(abs(n)-1))
+
+    print("Total {} mails sent".format(n))

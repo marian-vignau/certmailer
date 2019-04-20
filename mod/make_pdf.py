@@ -79,8 +79,7 @@ def read_csv(filepath):
                         certificate["filename"] += "-" + header2[idx_header] + header1[idx_header]
                         certificates.append(certificate)
 
-                if certificates:
-                    add_to_jobs(person, certificates)
+                add_to_jobs(person, certificates)
 
 
 def make_pdf():
@@ -90,4 +89,4 @@ def make_pdf():
     else:
         rows = read_csv(CSVPATH)
         print("To send {} certificates in {} mails".format(total_certificates, total_mails))
-        print("Open to choose mails to send and certs to generate")
+        print("Use sendmail option to send them")
