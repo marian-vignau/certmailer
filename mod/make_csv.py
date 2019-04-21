@@ -69,7 +69,3 @@ def make_csv():
                 fh.write(", ".join(x) + "\n")
         print("Created {}. Total {} rows".format(str(CSVPATH), row))
         print("Open to choose mails to send and certificates to generate")
-
-
-
-

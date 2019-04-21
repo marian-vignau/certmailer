@@ -21,8 +21,9 @@ __author__ = "María Andrea Vignau"
 import sys
 import zipfile
 
+
 def unziptemplate():
-    zip_ref = zipfile.ZipFile("init.zip", 'r')
+    zip_ref = zipfile.ZipFile("init.zip", "r")
     zip_ref.extractall(".")
     zip_ref.close()
 
@@ -31,9 +32,9 @@ def exec_command(command):
     from mod import make_csv, make_pdf, send_mails
 
     commands = {
-        'makecsv': make_csv.make_csv,
-        'makepdf': make_pdf.make_pdf,
-        'sendmails': send_mails.send_mails
+        "makecsv": make_csv.make_csv,
+        "makepdf": make_pdf.make_pdf,
+        "sendmails": send_mails.send_mails,
     }
     commands[command]()
 
@@ -44,7 +45,7 @@ if __name__ == "__main__":
         sys.exit(2)
     else:
         command = sys.argv[1].lower().strip()
-        commands = ['init', 'makecsv', 'makepdf', 'sendmails']
+        commands = ["init", "makecsv", "makepdf", "sendmails"]
         if not command in commands:
             print("You must provida a valid command")
             print("choose from: ", ",".join(commands))

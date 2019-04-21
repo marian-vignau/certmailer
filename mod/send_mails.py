@@ -39,17 +39,18 @@ def load_mails():
 
 def load_attachment(file_name):
     file_name = file_name.lower() + ".pdf"
-    with open(OUTBOX.joinpath(file_name), 'rb') as fh: #open binary file in read mode
+    with open(OUTBOX.joinpath(file_name), "rb") as fh:  # open binary file in read mode
         file_64_encode = base64.standard_b64encode(fh.read())
-    return {"ContentType": "application/pdf",
-                "Filename": file_name,
-                "Base64Content": file_64_encode.decode("ascii")
-            }
+    return {
+        "ContentType": "application/pdf",
+        "Filename": file_name,
+        "Base64Content": file_64_encode.decode("ascii"),
+    }
 
 
 def sendmail(data):
     keys = (config["keys"]["api_key"], config["keys"]["api_secret"])
-    mailjet = Client(auth=keys, version='v3.1')
+    mailjet = Client(auth=keys, version="v3.1")
     result = mailjet.send.create(data=data)
 
     return result
@@ -68,8 +69,8 @@ def send_mails():
         attach = [load_attachment(f) for f in email_data["attach"]]
         k = email_template.format(**email_data)
         message = yaml.safe_load(k)
-        message['Attachments'] = attach
-        data = {'Messages': [message]}
+        message["Attachments"] = attach
+        data = {"Messages": [message]}
         pprint.pprint(data)
         result = sendmail(data)
         if result.status_code == 200:
@@ -78,7 +79,9 @@ def send_mails():
                 move_to_outbox(filename.lower(), "pdf")
             attemp = 0
             while True:
-                result_path = SENTMAIL.joinpath("Rep%03d-" % attemp + email_data["filename"] + ".yaml")
+                result_path = SENTMAIL.joinpath(
+                    "Rep%03d-" % attemp + email_data["filename"] + ".yaml"
+                )
                 if result_path.exists():
                     attemp += 1
                 else:

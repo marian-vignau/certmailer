@@ -30,7 +30,7 @@ sys.path.append(path_to_certg)
 import certg
 
 
-e = config['events']
+e = config["events"]
 events = {}
 for item in e:
     events[item["name"]] = item["title"]
@@ -43,12 +43,12 @@ def add_to_jobs(mail, certificates):
     global total_certificates
     global total_mails
     mail["attach"] = [x["filename"] for x in certificates]
-    certg.process(str(CERTTEMPLATE),
-                  str(OUTBOX) + "/",
-                  "filename",
-                  certificates, images=[]
-                  )
-    with OUTBOX.joinpath("{}.yaml".format(mail["filename"])).open("w", encoding="utf8") as fh:
+    certg.process(
+        str(CERTTEMPLATE), str(OUTBOX) + "/", "filename", certificates, images=[]
+    )
+    with OUTBOX.joinpath("{}.yaml".format(mail["filename"])).open(
+        "w", encoding="utf8"
+    ) as fh:
         fh.write(yaml.safe_dump(mail))
     total_certificates += len(certificates)
     total_mails += 1
@@ -59,12 +59,12 @@ def read_csv(filepath):
         header1 = [x.strip() for x in fh.readline().split(",")]
         header2 = [x.strip() for x in fh.readline().split(",")]
         for line in fh.readlines():
-            data = [x.strip() for x in line.split(',')]
+            data = [x.strip() for x in line.split(",")]
             if data[2].strip():
                 person = {
                     "name": data[0],
                     "email": data[1],
-                    "filename": data[1].replace("@", "_").replace(".", "-")
+                    "filename": data[1].replace("@", "_").replace(".", "-"),
                 }
                 certificates = []
 
@@ -73,10 +73,12 @@ def read_csv(filepath):
                         idx_header = idx + 3
                         certificate = {
                             "event": events[header2[idx_header]],
-                            "category": header1[idx_header]
+                            "category": header1[idx_header],
                         }
                         certificate.update(person)
-                        certificate["filename"] += "-" + header2[idx_header] + header1[idx_header]
+                        certificate["filename"] += (
+                            "-" + header2[idx_header] + header1[idx_header]
+                        )
                         certificates.append(certificate)
 
                 add_to_jobs(person, certificates)
@@ -88,5 +90,9 @@ def make_pdf():
         sys.exit(1)
     else:
         rows = read_csv(CSVPATH)
-        print("To send {} certificates in {} mails".format(total_certificates, total_mails))
+        print(
+            "To send {} certificates in {} mails".format(
+                total_certificates, total_mails
+            )
+        )
         print("Use sendmail option to send them")

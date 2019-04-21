@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 
 # Copyright 2019 María Andrea Vignau
@@ -32,13 +31,13 @@ from . import config, DATAPATH
 events = config["events"]
 
 
-class MyList():
+class MyList:
     def __init__(self):
         self.search_file_names()
         self.list = {}
         self.speakers = {}
         for category in config["categories"].values():
-            if category["regtype"] == 'person':
+            if category["regtype"] == "person":
                 self._append_list(category)
 
         self._append_speakers(config["categories"]["Speaker"])
@@ -63,7 +62,9 @@ class MyList():
     def _add_person(self, user):
         if not user["email"] in self.list:
             user["certificates"] = []
-            user["ascii_name"] = self.unaccented(user.get("first_name", ""), user.get("last_name", ""))
+            user["ascii_name"] = self.unaccented(
+                user.get("first_name", ""), user.get("last_name", "")
+            )
             self.list[user["email"]] = user
         return user["email"]
 
@@ -100,7 +101,7 @@ class MyList():
         prefix = "event_user__user__"
         for key, value in item.items():
             if key.startswith(prefix):
-                user[key[len(prefix):]] = value
+                user[key[len(prefix) :]] = value
             else:
                 user[key] = value
         return user
@@ -118,7 +119,7 @@ class MyList():
                         "certificates": [],
                         "last_name": speaker.strip(),
                         "email": email,
-                        "registration_date": item["created_at"]
+                        "registration_date": item["created_at"],
                     }
 
                     if email:
@@ -142,12 +143,9 @@ class MyList():
         s = " ".join(parts)
         s = s.lower()
 
-        unaccented = ''.join(c for c in unicodedata.normalize('NFD', s)
-                             if unicodedata.category(c) != 'Mn')
+        unaccented = "".join(
+            c
+            for c in unicodedata.normalize("NFD", s)
+            if unicodedata.category(c) != "Mn"
+        )
         return unaccented
-
-
-
-
-
-

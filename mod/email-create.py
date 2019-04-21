@@ -23,39 +23,38 @@ __author__ = "María Andrea Vignau"
 import yaml
 import pathlib
 import base64
+
 CONFIGPATH = pathlib.Path("../work/config")
 
 data = {
     "From": {
-            "Email": "mavignau@gmail.com",
-            "Name": "Organización Flisol Resistencia 2019"
+        "Email": "mavignau@gmail.com",
+        "Name": "Organización Flisol Resistencia 2019",
     },
-    "To": [
-            {
-                    "Email": "{email}",
-                    "Name": "{name}"
-            }
-    ],
+    "To": [{"Email": "{email}", "Name": "{name}"}],
     "Subject": "test",
     "TextPart": "",
     "HTMLPart": "",
-    "InlinedAttachments": []
-    }
+    "InlinedAttachments": [],
+}
 
 
 attached = data["InlinedAttachments"]
 for file in CONFIGPATH.iterdir():
     if file.suffix == ".png":
-        with file.open('rb') as fh:  # open binary file in read mode
+        with file.open("rb") as fh:  # open binary file in read mode
             file_64_encode = base64.standard_b64encode(fh.read())
-        newinline = {"ContentType": "image/png",
-                "Filename": file.name,
-                "ContentID": file.stem,
-                "Base64Content": file_64_encode.decode("ascii")
-                }
+        newinline = {
+            "ContentType": "image/png",
+            "Filename": file.name,
+            "ContentID": file.stem,
+            "Base64Content": file_64_encode.decode("ascii"),
+        }
         attached.append(newinline)
 
-data["HTMLPart"] = """
+data[
+    "HTMLPart"
+] = """
 <img src="cid:LOGO"> 
 
 <p style="font-size:14.0pt;line-height:106%;color:#ED7D31"> 
@@ -85,7 +84,9 @@ Si te registrás en la página, entregamos certificados al e-mail que ingreses.
 <img src="cid:PIE"> 
 """
 
-data["TextPart"]="""
+data[
+    "TextPart"
+] = """
 Te invitamos a participar del evento de difusión del software libre más grande en su tipo.
 
  
@@ -115,4 +116,3 @@ data["Subject"] = "Te invitamos a participar en el nuevo Flisol 2019"
 
 with open("email.yaml", "w", encoding="utf-8") as fh:
     fh.write(yaml.safe_dump(data))
-
