@@ -64,14 +64,14 @@ def move_to_outbox(filename, suffix):
 
 def send_mails():
     n = 0
-    max_mails = 2
+    max_mails = 0
     for email_data in load_mails():
         attach = [load_attachment(f) for f in email_data["attach"]]
         k = email_template.format(**email_data)
         message = yaml.safe_load(k)
         message["Attachments"] = attach
         data = {"Messages": [message]}
-        pprint.pprint(data)
+        #pprint.pprint(data)
         result = sendmail(data)
         if result.status_code == 200:
             move_to_outbox(email_data["filename"], "yaml")

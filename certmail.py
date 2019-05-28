@@ -38,8 +38,7 @@ def exec_command(command):
     }
     commands[command]()
 
-
-if __name__ == "__main__":
+def cli():
     if len(sys.argv) < 2:
         print("You must select some command")
         sys.exit(2)
@@ -47,10 +46,13 @@ if __name__ == "__main__":
         command = sys.argv[1].lower().strip()
         commands = ["init", "makecsv", "makepdf", "sendmails"]
         if not command in commands:
-            print("You must provida a valid command")
+            print("You must provide a valid command")
             print("choose from: ", ",".join(commands))
         else:
             if command == "init":
                 unziptemplate()
             else:
                 exec_command(command)
+
+if __name__ == "__main__":
+    cli()

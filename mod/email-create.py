@@ -32,7 +32,7 @@ data = {
         "Name": "Organización Flisol Resistencia 2019",
     },
     "To": [{"Email": "{email}", "Name": "{name}"}],
-    "Subject": "test",
+    "Subject": "Tu certificado por la participación en Flisol 2019",
     "TextPart": "",
     "HTMLPart": "",
     "InlinedAttachments": [],
@@ -56,15 +56,10 @@ data[
     "HTMLPart"
 ] = """
 <img src="cid:LOGO"> 
+<img src="cid:PIE"> 
 
 <p style="font-size:14.0pt;line-height:106%;color:#ED7D31"> 
-
-Te invitamos a participar del evento de difusión del software libre más grande en su tipo.</p>
-
-<p> 
-Te esperamos el sábado 27 de abril, desde las 10:00 en Arturo Illia 1055 (Resistencia-Chaco) para que 
-puedas disfrutar de las 11 charlas, 3 talleres y un panel sobre trabajo remoto que tenemos preparado 
-para que conozcas más sobre software libre.
+Agradecemos tu participación en Flisol 2019, sede Resistencia, el día 27 de abril de 2019.
 </p>
 <p>
 Esta es tú oportunidad para conocer más, conocer a otros usuarios, resolver dudas e interrogantes, 
@@ -72,47 +67,51 @@ intercambiar opiniones y experiencias, asistir a charlas, talleres y otras activ
 para hacer de la jornada una verdadera fiesta de la emancipación tecnológica.
 </p>
 <p>
-Podés ver todas las actividades en https://eventol.flisol.org.ar/events/flisol-resistencia-2019/.
+Es un placer anunciar que el día 29 de junio de 2019 10:00, en la sede Resistencia 
+de la Universidad Tecnológica Nacional, Frech 414, se desarrollará el PyDayNEA 2019.
 </p>
 <p>
-Si te registrás en la página, entregamos certificados al e-mail que ingreses.
+Un día completo de charlas y talleres sobre el lenguaje de programación Python.
 </p>
 <p>
+¿Tienen algún tema y desean desarrollarlo? 
+</p>
+<p>
+¿Les gusta el lenguaje python y quieren mostrar sus usos? ¡Esperamos sus propuestas! 
+</p>
+<p>
+Registralas en https://eventos.python.org.ar/events/pydaynea2019/activity/proposal/
+</p><p>
 ¡Te esperamos!
 </p>
 
-<img src="cid:PIE"> 
+
 """
 
 data[
     "TextPart"
 ] = """
-Te invitamos a participar del evento de difusión del software libre más grande en su tipo.
-
- 
-
-Te esperamos el sábado 27 de abril, desde las 10:00 en Arturo Illia 1055 (Resistencia-Chaco) 
-para que puedas disfrutar de las 11 charlas, 3 talleres y un panel sobre trabajo remoto que 
-tenemos preparado para que conozcas más sobre software libre.
-
+Agradecemos tu participación en Flisol 2019, sede Resistencia, el día 27 de abril de 2019.
 
 Esta es tú oportunidad para conocer más, conocer a otros usuarios, resolver dudas e interrogantes, 
 intercambiar opiniones y experiencias, asistir a charlas, talleres y otras actividades programadas 
 para hacer de la jornada una verdadera fiesta de la emancipación tecnológica.
 
- 
+Es un placer anunciar que el día 29 de junio de 2019 10:00, en la sede Resistencia 
+de la Universidad Tecnológica Nacional, Frech 414, se desarrollará el PyDayNEA 2019.
 
-Podés ver todas las actividades en https://eventol.flisol.org.ar/events/flisol-resistencia-2019/.
+Un día completo de charlas y talleres sobre el lenguaje de programación Python.
 
- 
+¿Tienen algún tema y desean desarrollarlo? 
 
-Si te registrás en la página, entregamos certificados al e-mail que ingreses.
+¿Les gusta el lenguaje python y quieren mostrar sus usos? ¡Esperamos sus propuestas! 
 
- 
+Registralas en https://eventos.python.org.ar/events/pydaynea2019/activity/proposal/
 
-¡Te esperamos!"""
+¡Te esperamos!
 
-data["Subject"] = "Te invitamos a participar en el nuevo Flisol 2019"
+"""
+
 
 with open("email.yaml", "w", encoding="utf-8") as fh:
     fh.write(yaml.safe_dump(data))

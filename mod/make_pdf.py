@@ -25,8 +25,8 @@ import yaml
 from . import config, OUTBOX, CERTTEMPLATE, CSVPATH
 from pprint import pprint
 
-path_to_certg = "certg/certg"
-sys.path.append(path_to_certg)
+#path_to_certg = "certg/certg"
+#sys.path.append(path_to_certg)
 import certg
 
 
@@ -42,7 +42,7 @@ total_certificates = 0
 def add_to_jobs(mail, certificates):
     global total_certificates
     global total_mails
-    mail["attach"] = [x["filename"] for x in certificates]
+    mail["attach"] = ["-" + x["filename"] for x in certificates]
     certg.process(
         str(CERTTEMPLATE), str(OUTBOX) + "/", "filename", certificates, images=[]
     )
