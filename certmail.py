@@ -16,43 +16,51 @@
 #
 # For further info, check
 
+
+
 __author__ = "María Andrea Vignau"
+
 
 import sys
 import zipfile
 
 
 def unziptemplate():
+    """Unzip a template directory to start work"""
     zip_ref = zipfile.ZipFile("init.zip", "r")
     zip_ref.extractall(".")
     zip_ref.close()
 
 
 def exec_command(command):
-    from mod import make_csv, make_pdf, send_mails
+    from mod import make_csv, make_pdf, send_mails, do_template
 
     commands = {
+        "dotemplate": do_template.do_template,
         "makecsv": make_csv.make_csv,
         "makepdf": make_pdf.make_pdf,
         "sendmails": send_mails.send_mails,
     }
     commands[command]()
 
+
 def cli():
+    commands = ["init", "dotemplate", "makecsv", "makepdf", "sendmails"]
     if len(sys.argv) < 2:
         print("You must select some command")
+        print("choose from: ", ", ".join(commands))
         sys.exit(2)
     else:
         command = sys.argv[1].lower().strip()
-        commands = ["init", "makecsv", "makepdf", "sendmails"]
         if not command in commands:
-            print("You must provide a valid command")
-            print("choose from: ", ",".join(commands))
+            print("You must provide a valid command *")
+            print("choose from: ", ", ".join(commands))
         else:
             if command == "init":
                 unziptemplate()
             else:
                 exec_command(command)
+
 
 if __name__ == "__main__":
     cli()

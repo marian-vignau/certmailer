@@ -55,6 +55,7 @@ email will be stored.
 
 - Python 3
 - PyYaml
+- certg
 - mailjet-rest
 
 ## Dev Instructions
@@ -62,8 +63,7 @@ email will be stored.
 - git clone git@github.com:marian-vignau/certmailer.git
 - virtualenv env
 - source env/bin/activate
-- pip install -r requirements.txt
-- git clone https://github.com/facundobatista/certg.git
+- pip install -e .
 ```
 
 ## Contributing

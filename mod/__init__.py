@@ -22,7 +22,6 @@ from pathlib import Path
 import sys
 import yaml
 
-
 config = None
 
 
@@ -30,13 +29,14 @@ OUTBOX = Path("work/outbox")
 CSVPATH = Path("work/cert_sheet.csv")
 SENTMAIL = Path("work/sent")
 CONFIGPATH = Path("work/config")
-MAILTEMPLATE = CONFIGPATH.joinpath("email.yaml")
+MAILDATA = CONFIGPATH.joinpath("email.yaml")
+MAILTEMPLATE = Path("work/email_template.yaml")
 CERTTEMPLATE = CONFIGPATH.joinpath("certificate.svg")
 DATAPATH = Path("work/data")
 
-for x in [OUTBOX, SENTMAIL, CONFIGPATH, MAILTEMPLATE, CERTTEMPLATE, DATAPATH]:
+for x in [OUTBOX, SENTMAIL, CONFIGPATH, MAILDATA, CERTTEMPLATE, DATAPATH]:
     if not x.exists():
-        print("Path {} is missing".format(str(x)))
+        print(f"Path {x} is missing")
         sys.exit(2)
 try:
     with CONFIGPATH.joinpath("config.yaml").open("r", encoding="utf8") as fh:

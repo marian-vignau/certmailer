@@ -19,8 +19,6 @@
 __author__ = "María Andrea Vignau"
 
 import sys
-from pathlib import Path
-import yaml
 from . import create_list
 from . import config, CSVPATH
 
@@ -58,7 +56,7 @@ def process_list(sendmail):
 
 def make_csv():
     if CSVPATH.exists():
-        print("Files exists")
+        print(f"Files exists in {CSVPATH}")
         sys.exit(1)
     else:
         row = 0
@@ -67,5 +65,5 @@ def make_csv():
                 fh.write(", ".join(x) + "\n")
             for row, x in enumerate(process_list("send")):
                 fh.write(", ".join(x) + "\n")
-        print("Created {}. Total {} rows".format(str(CSVPATH), row))
+        print(f"Created {CSVPATH}. Total {row} rows")
         print("Open to choose mails to send and certificates to generate")
