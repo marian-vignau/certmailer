@@ -22,12 +22,6 @@ __author__ = "María Andrea Vignau"
 
 
 import sys
-import zipfile
+import test
 
-from src import commandline
-
-def cli():
-    commandline.run(sys.argv)
-
-if __name__ == "__main__":
-    commandline.run(sys.argv)
+from src.commandline import cli

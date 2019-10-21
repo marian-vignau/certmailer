@@ -19,12 +19,56 @@
 __author__ = "María Andrea Vignau"
 
 import click
-from . import mng_config
-from . import mng_jobs
 
-cli = click.CommandCollection(sources=[mng_jobs.cli, mng_config.cli])
-
-
+@click.group()
+def cli():
+    pass
 
 
+@cli.group()
+def data():
+    """Manage current job's data sources"""
+    pass
+
+
+@data.command()
+def list():
+    """Lists current job's data sources """
+    pass
+
+
+@data.command()
+def add():
+    """Add a data source to current job."""
+    pass
+
+
+@data.command()
+def remove():
+    """Remove a data source from current job."""
+    pass
+
+
+@cli.group()
+def edit():
+    """Edit current job components"""
+    pass
+
+
+@edit.command()
+def email():
+    """Edits the email template"""
+    pass
+
+
+@edit.command()
+def certificate():
+    """Edits the certificate using Inkscape."""
+    pass
+
+
+@edit.command()
+def receivers():
+    """Edits the email receivers."""
+    pass
 

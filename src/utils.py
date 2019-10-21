@@ -17,16 +17,21 @@
 # For further info, check
 
 __author__ = "María Andrea Vignau"
+import yaml
 
-import datetime
 
-def validate_date(s):
-    try:
-        if len(s) == 10:
-            x = datetime.datetime.strptime(s, "%Y-%m-%d")
+def load_yml(filepath):
+    """Loads yaml data."""
+    data = {}
+    if filepath.exists():
+        with open(filepath, encoding="utf8") as fh:
+            data = yaml.safe_load(fh.read())
+    return data
 
-        if len(s) == 8:
-            x = datetime.datetime.strptime(s, "%y-%m-%d")
-        return x
-    except ValueError:
-        return False
+
+def save_yml(filepath, new_data):
+    """Updates and saves yaml data."""
+    data = load_yml(filepath)
+    data.update(new_data)
+    with open(filepath, "w", encoding="utf8") as fh:
+        fh.write(yaml.safe_dump(data))
