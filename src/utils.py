@@ -16,18 +16,17 @@
 #
 # For further info, check
 
-
-
 __author__ = "María Andrea Vignau"
 
+import datetime
 
-import sys
-import zipfile
+def validate_date(s):
+    try:
+        if len(s) == 10:
+            x = datetime.datetime.strptime(s, "%Y-%m-%d")
 
-from src import commandline
-
-def cli():
-    commandline.run(sys.argv)
-
-if __name__ == "__main__":
-    commandline.run(sys.argv)
+        if len(s) == 8:
+            x = datetime.datetime.strptime(s, "%y-%m-%d")
+        return x
+    except ValueError:
+        return False

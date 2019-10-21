@@ -33,7 +33,13 @@ def _load_mails():
                 attach = [_load_attachment(f) for f in email_data["attach"]]
                 k = email_template.format(**email_data)
                 message = yaml.safe_load(k)
-                message["Attachments"] = attach
+                default_attachs = message.get("Attachments", [])
+                if default_attachs:
+                    for attach in default_attachs:
+                        filename = attach["Filename"][:-4]
+                        email_data["attach"].append(filename)
+                #message["Attachments"] = message.get("Attachments", []).extend(attach)
+
                 data = {"Messages": [message]}
                 yield email_data, data
 
@@ -63,16 +69,17 @@ def _move_to_outbox(filename, suffix):
     shutil.move(src=str(src), dst=str(dst))
 
 
-def send_mails():
+def send_mails(max_mails=0):
     """Send mails. If it"""
     n = 0
-    max_mails = 0
+
     for email_data, data in _load_mails():
         result = _sendmail(data)
         if result.status_code == 200:  # its OK
-            _move_to_outbox(email_data["filename"], "yaml")
+            #_move_to_outbox(email_data["filename"], "yaml")
             for filename in email_data["attach"]:
-                _move_to_outbox(filename.lower(), "pdf")
+                pass
+                #_move_to_outbox(filename.lower(), "pdf")
             attemp = 0
             while True:
                 result_path = SENTMAIL.joinpath(

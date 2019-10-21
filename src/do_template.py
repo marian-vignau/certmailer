@@ -22,24 +22,41 @@ __author__ = "María Andrea Vignau"
 
 import yaml
 import base64
-from . import config, CONFIGPATH, MAILDATA, MAILTEMPLATE
+from . import config, ATTACHPATH, MAILDATA, MAILTEMPLATE
 
 
 def _inline_attachments():
     """Append inline attachments to email html"""
     attached = []
-    for file in CONFIGPATH.iterdir():
+    for file in ATTACHPATH.iterdir():
         if file.suffix == ".png":
             with file.open("rb") as fh:  # open binary file in read mode
                 file_64_encode = base64.standard_b64encode(fh.read())
-            newinline = {
-                "ContentType": "image/png",
-                "Filename": file.name,
-                "ContentID": file.stem,
-                "Base64Content": file_64_encode.decode("ascii"),
-            }
-            attached.append(newinline)
+                newinline = {
+                    "ContentType": "image/png",
+                    "Filename": file.name,
+                    "ContentID": file.stem,
+                    "Base64Content": file_64_encode.decode("ascii"),
+                }
+                attached.append(newinline)
     return attached
+
+
+def _default_attachments():
+    """Append default attachments to email html"""
+    attached = []
+    for file in ATTACHPATH.iterdir():
+        if file.suffix == ".pdf":
+            with file.open("rb") as fh:  # open binary file in read mode
+                file_64_encode = base64.standard_b64encode(fh.read())
+                newattach = {
+                    "ContentType": "application/pdf",
+                    "Filename": file.stem,
+                    "Base64Content": file_64_encode.decode("ascii"),
+                }
+                attached.append(newattach)
+    return attached
+
 
 def _check_inlines(data):
     """Check if every inline referenced is attached."""
@@ -62,6 +79,7 @@ def do_template():
     data["From"] = config["from"]
 
     data["InlinedAttachments"] = _inline_attachments()
+    data["Attachments"] = _default_attachments()
     missed = _check_inlines(data)
     if missed:
         print("Error: Missing inline attachments referenced", ', '.join(missed))

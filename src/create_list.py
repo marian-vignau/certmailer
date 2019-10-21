@@ -69,7 +69,7 @@ class MyList:
 
     def _add_person(self, user):
         """Creates a email's list.
-        Each one is identified by it's email"""
+        Each person is identified by it's email"""
         if not user["email"] in self.list:
             user["certificates"] = []
             user["ascii_name"] = self.unaccented(

@@ -19,28 +19,34 @@
 __author__ = "María Andrea Vignau"
 
 from pathlib import Path
-import sys
+
+import appdirs
 import yaml
 
-config = None
+
+def ensure_dir_exists(dirpath):
+    """If the directory doesn't exist, create it."""
+    if not dirpath.exists():
+        dirpath.mkdir()
+    return dirpath
 
 
-OUTBOX = Path("work/outbox")
-CSVPATH = Path("work/cert_sheet.csv")
-SENTMAIL = Path("work/sent")
-CONFIGPATH = Path("work/config")
-MAILDATA = CONFIGPATH.joinpath("email.yaml")
-MAILTEMPLATE = Path("work/email_template.yaml")
-CERTTEMPLATE = CONFIGPATH.joinpath("certificate.svg")
-DATAPATH = Path("work/data")
+# simple attributes to have this calculated at one place only
+app = appdirs.AppDirs("certmail")
 
-for x in [OUTBOX, SENTMAIL, CONFIGPATH, MAILDATA, CERTTEMPLATE, DATAPATH]:
-    if not x.exists():
-        print(f"Path {x} is missing")
-        sys.exit(2)
-try:
-    with CONFIGPATH.joinpath("config.yaml").open("r", encoding="utf8") as fh:
-        config = yaml.safe_load(fh)
-except FileNotFoundError:
-    print("You must init working directories")
-    sys.exit(2)
+ensure_dir_exists(Path(app.user_config_dir))
+ensure_dir_exists(Path(app.user_data_dir))
+ensure_dir_exists(Path(app.user_cache_dir))
+
+data_basedir = Path(app.user_data_dir)
+cache_basedir = Path(app.user_cache_dir)
+config_basedir = Path(app.user_config_dir)
+
+config_path = config_basedir.joinpath("config.cfg")
+
+if config_path.exists():
+    with open(config_path, encoding="utf8") as fh:
+        config_data = yaml.safe_load(fh.read())
+
+
+

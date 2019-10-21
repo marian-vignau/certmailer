@@ -1,7 +1,7 @@
 /work*
 /.idea
-/certg
 *egg-info/
-__pycache__/
+*__pycache__/
 *.py[cod]
+*.pyc
 *$py.class
