@@ -19,51 +19,49 @@
 __author__ = "María Andrea Vignau"
 
 import sys
+import click
 from . import create_list
-from . import config, CSVPATH
 
 
-certificates = [act["description"] for act in config["categories"].values()]
-events = config["events"]
-
-
-def make_header():
+def make_header(job):
+    certificates = [act["description"] for act in job.categories.values()]
     header = ["name", "email", "send"]
-    header.extend(certificates * len(events))
+    header.extend(certificates)
     yield header
     header = ["", "", "mail?"]
-    for event in events:
-        header += [event["name"]] * len(certificates)
+    header += [job.name] * len(certificates)
 
     yield header
 
 
-def process_list(sendmail):
-    do = create_list.MyList()
+def process_list(sendmail, job):
+    do = create_list.MyList(job)
     for email, value in do.list.items():
         name = value.get("first_name", "") + " "
         name += value.get("last_name", "")
         line = [name, email, sendmail]
-        for event in events:
-            for certificate in certificates:
-                if (event["name"], certificate) in value["certificates"]:
-                    line.append("yes")
-                    # line.append(event["name"] + " " + certificate)
-                else:
-                    line.append("")
+        for category in job.categories.values():
+            dupla = (job.name, category["description"])
+            if dupla in value["certificates"]:
+                line.append("yes")
+            else:
+                line.append("")
         yield line
+    click.echo(do.stats)
+
+def make_csv(job):
+    receivers = job.relative_path("receivers.csv")
+
+    if receivers.exists():
+        click.secho(f"Files exists in {receivers}", fg="red")
 
 
-def make_csv():
-    if CSVPATH.exists():
-        print(f"Files exists in {CSVPATH}")
-        sys.exit(1)
-    else:
-        row = 0
-        with CSVPATH.open("w", encoding="utf8") as fh:
-            for x in make_header():
-                fh.write(", ".join(x) + "\n")
-            for row, x in enumerate(process_list("send")):
-                fh.write(", ".join(x) + "\n")
-        print(f"Created {CSVPATH}. Total {row} rows")
-        print("Open to choose mails to send and certificates to generate")
+    row = 0
+    with receivers.open("w", encoding="utf8") as fh:
+        for x in make_header(job):
+            fh.write(", ".join(x) + "\n")
+        for row, x in enumerate(process_list("send", job)):
+            fh.write(", ".join(x) + "\n")
+    click.echo(f"Created {receivers}. Total {row} rows")
+
+    click.echo("Open to choose mails to send and certificates to generate")

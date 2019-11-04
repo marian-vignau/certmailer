@@ -34,19 +34,12 @@ def ensure_dir_exists(dirpath):
 # simple attributes to have this calculated at one place only
 app = appdirs.AppDirs("certmail")
 
-ensure_dir_exists(Path(app.user_config_dir))
-ensure_dir_exists(Path(app.user_data_dir))
-ensure_dir_exists(Path(app.user_cache_dir))
-
-data_basedir = Path(app.user_data_dir)
-cache_basedir = Path(app.user_cache_dir)
-config_basedir = Path(app.user_config_dir)
+data_basedir = ensure_dir_exists(Path(app.user_data_dir))
+cache_basedir = ensure_dir_exists(Path(app.user_cache_dir))
+config_basedir = ensure_dir_exists(Path(app.user_config_dir))
 
 config_path = config_basedir.joinpath("config.cfg")
 
 if config_path.exists():
     with open(config_path, encoding="utf8") as fh:
         config_data = yaml.safe_load(fh.read())
-
-
-

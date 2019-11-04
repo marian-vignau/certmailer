@@ -1,0 +1,4 @@
+Hola {name}.
+
+Adjuntamos certificados del {title}
+

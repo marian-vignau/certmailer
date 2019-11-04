@@ -20,72 +20,96 @@ __author__ = "María Andrea Vignau"
 
 # guide in https://dev.mailjet.com/guides/?python#send-with-attached-files
 
-import yaml
 import base64
-from . import config, ATTACHPATH, MAILDATA, MAILTEMPLATE
+import mimetypes
+import re
+
+import click
+from .utils import load_yml, save_yml
 
 
-def _inline_attachments():
+def _new_inline(attach_path, file_stem):
     """Append inline attachments to email html"""
-    attached = []
-    for file in ATTACHPATH.iterdir():
-        if file.suffix == ".png":
-            with file.open("rb") as fh:  # open binary file in read mode
-                file_64_encode = base64.standard_b64encode(fh.read())
-                newinline = {
-                    "ContentType": "image/png",
-                    "Filename": file.name,
-                    "ContentID": file.stem,
-                    "Base64Content": file_64_encode.decode("ascii"),
-                }
-                attached.append(newinline)
-    return attached
+    print(attach_path, file_stem)
+    newinline = False
+    for file in attach_path.glob(file_stem + ".*"):
+        with file.open("rb") as fh:  # open binary file in read mode
+            file_64_encode = base64.standard_b64encode(fh.read())
+            newinline = {
+                "ContentType": mimetypes.guess_type(str(file))[0],
+                "Filename": file.name,
+                "ContentID": file.stem,
+                "Base64Content": file_64_encode.decode("ascii"),
+            }
+    return newinline
 
 
-def _default_attachments():
+def _default_attachments(attach_path, data, used):
     """Append default attachments to email html"""
+    data["Attachments"] = []
     attached = []
-    for file in ATTACHPATH.iterdir():
-        if file.suffix == ".pdf":
+    for file in attach_path.iterdir():
+        if not file.name in used:
             with file.open("rb") as fh:  # open binary file in read mode
                 file_64_encode = base64.standard_b64encode(fh.read())
                 newattach = {
-                    "ContentType": "application/pdf",
+                    "ContentType": mimetypes.guess_type(str(file))[0],
                     "Filename": file.stem,
                     "Base64Content": file_64_encode.decode("ascii"),
                 }
-                attached.append(newattach)
+                data["Attachments"].append(newattach)
+            attached.append(file.name)
     return attached
 
 
-def _check_inlines(data):
+def _add_inlines(job, data):
     """Check if every inline referenced is attached."""
-    import re
     html = data["HTMLPart"]
-    pattern = "src='cid:(\w+)'"
+    pattern = "src=['\"]cid:(\w+)['\"]"
     missed = []
-    inlined = [item["ContentID"] for item in data["InlinedAttachments"]]
+    data["InlinedAttachments"] = []
+    added = []
+
     for match in re.finditer(pattern, html):
-        if not match.group(1) in inlined:
-            missed.append(match.group(0))
-    return missed
+        print(match.group(0))
+        inline = _new_inline(job.attach.path, match.group(1))
+        if inline:
+            added.append(inline["Filename"])
+            data["InlinedAttachments"].append(inline)
+        else:
+            missed.append(match.group(1))
+    return missed, added
 
 
-def do_template():
+def load(job, filename):
+    """Loads a text file in job's data folder"""
+    with job.relative_path(filename).open(encoding="utf8") as fh:
+        return fh.read()
+
+
+def do_template(job):
     """Creates the email template that includes inline attachments"""
-    with open(MAILDATA) as fh:
-        data = yaml.safe_load(fh.read())
+    config = load_yml(job.relative_path("config.yml"))
+    data = {"From": {"Email": config["sender_email"],
+                     "Name": config["sender_name"]},
 
-    data["From"] = config["from"]
+            "To": [{"Email": "{email}",
+                    "Name": "{name}"}],
 
-    data["InlinedAttachments"] = _inline_attachments()
-    data["Attachments"] = _default_attachments()
-    missed = _check_inlines(data)
+            "Subject": config["subject"],
+
+            "TextPart": load(job, "textpart.txt"),
+            "HTMLPart": load(job, "htmlpart.html"),
+            }
+
+    missed, added = _add_inlines(job, data)
     if missed:
-        print("Error: Missing inline attachments referenced", ', '.join(missed))
+        click.echo("Error: Missing inline attachments referenced", ', '.join(missed))
     else:
-        with open(MAILTEMPLATE, "w", encoding="utf-8") as fh:
-            fh.write(yaml.safe_dump(data))
-
-        print(f"Created {MAILTEMPLATE}")
+        attached = _default_attachments(job.attach.path, data, added)
+        template_path = job.relative_path("emailtemplate.yaml")
+        save_yml(template_path, data)
+        click.echo(f"Created {template_path.name}")
+        click.echo(f"added {len(added)} ({', '.join(added)}) inlined images")
+        click.echo(f"added {len(attached)} ({', '.join(attached)}) fixed attachments")
 

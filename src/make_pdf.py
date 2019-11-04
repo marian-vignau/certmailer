@@ -20,24 +20,25 @@ __author__ = "María Andrea Vignau"
 
 import sys
 import yaml
-from . import config, OUTBOX, CERTTEMPLATE, CSVPATH
+import click
 
 import certg
-
 
 total_mails = 0
 total_certificates = 0
 
 
-def _add_to_jobs(receiver, certificates):
+def _add_to_jobs(job, receiver, certificates):
     """Generate PDF using the certificate template"""
     global total_certificates
     global total_mails
     receiver["attach"] = ["-" + x["filename"] for x in certificates]
     certg.process(
-        str(CERTTEMPLATE), str(OUTBOX) + "/", "filename", certificates, images=[]
+        str(job.relative_path("certificate.svg")),
+        str(job.outbox) + "/",
+        "filename", certificates, images=[]
     )
-    with OUTBOX.joinpath("{}.yaml".format(receiver["filename"])).open(
+    with job.outbox.joinpath("{}.yaml".format(receiver["filename"])).open(
         "w", encoding="utf8"
     ) as fh:
         fh.write(yaml.safe_dump(receiver))
@@ -45,7 +46,7 @@ def _add_to_jobs(receiver, certificates):
     total_mails += 1
 
 
-def _gen_certificates(receiver, data, cert_types):
+def _gen_certificates(job, receiver, data, cert_types):
     """Generate certificate's PDF for one receiver"""
     certificates = []
     for idx, cert in enumerate(data):
@@ -54,16 +55,11 @@ def _gen_certificates(receiver, data, cert_types):
             certificate.update(receiver)
             certificate["filename"] += certificate["suffix"]
             certificates.append(certificate)
-    _add_to_jobs(receiver, certificates)
+    _add_to_jobs(job, receiver, certificates)
 
 
-def _parse_header(header1, header2):
+def _parse_header(job, header1, header2):
     """Parses header to find different certificates to generate"""
-    e = config["events"]
-    events = {}
-    for item in e:
-        events[item["name"]] = item["title"]
-
     send_column = header1.index("send")
     first_cert_col = send_column + 1
     cert_types = []
@@ -71,21 +67,24 @@ def _parse_header(header1, header2):
         idx = first_cert_col + i
         evt = header2[idx]
         cert_types.append({
-            "event": events[evt],
+            "event": job.config["title"],
             "category": cat,
             "suffix": f"-{evt}-{cat}"
         })
     return cert_types, send_column, first_cert_col
 
 
-def _read_csv(filepath):
+def _read_csv(job, filepath):
     """Read file and generate certificate's PDFs."""
+    lines = len(filepath.open().readlines()) - 2
     with filepath.open("r", encoding="utf8") as fh:
         header1 = [x.strip() for x in fh.readline().split(",")]
         header2 = [x.strip() for x in fh.readline().split(",")]
-        cert_types, send_column, first_cert_col = _parse_header(header1, header2)
+        cert_types, send_column, first_cert_col = _parse_header(job, header1, header2)
 
+        prog = click.progressbar(length=lines)
         for line in fh.readlines():
+            prog.update(1)
             data = [x.strip() for x in line.split(",")]
             if data[send_column].strip():  # if column 'send' has something
                 receiver = {
@@ -93,19 +92,20 @@ def _read_csv(filepath):
                     "email": data[1],
                     "filename": data[1].replace("@", "_").replace(".", "-"),
                 }
-                _gen_certificates(receiver, data[first_cert_col:], cert_types)
+                _gen_certificates(job, receiver, data[first_cert_col:], cert_types)
 
 
-def make_pdf():
+def make_pdf(job):
     """Generate certificate's PDFs."""
-    if not CSVPATH.exists():
-        print("File doesn't exists")
+    csv_path = job.relative_path("receivers.csv")
+    if not csv_path.exists():
+        click.secho("Receivers list file doesn't exists", fg="red")
         sys.exit(1)
     else:
-        rows = _read_csv(CSVPATH)
-        print(
-            "To send {} certificates in {} mails".format(
+        rows = _read_csv(job, csv_path)
+        click.echo(
+            "\nTo send {} certificates in {} mails".format(
                 total_certificates, total_mails
             )
         )
-        print("Use sendmail option to send them")
+        click.echo("Use >>certmail do send option to send them")
