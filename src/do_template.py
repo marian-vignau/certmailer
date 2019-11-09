@@ -54,7 +54,7 @@ def _default_attachments(attach_path, data, used):
                 file_64_encode = base64.standard_b64encode(fh.read())
                 newattach = {
                     "ContentType": mimetypes.guess_type(str(file))[0],
-                    "Filename": file.stem,
+                    "Filename": file.name,
                     "Base64Content": file_64_encode.decode("ascii"),
                 }
                 data["Attachments"].append(newattach)

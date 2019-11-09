@@ -31,15 +31,26 @@ def ensure_dir_exists(dirpath):
     return dirpath
 
 
+class Dir(object):
+    def __init__(self, app):
+        self.data_basedir = ensure_dir_exists(Path(app.user_data_dir))
+        self.cache_basedir = ensure_dir_exists(Path(app.user_cache_dir))
+        self.config_basedir = ensure_dir_exists(Path(app.user_config_dir))
+
+        self.config_path = self.config_basedir.joinpath("config.cfg")
+
+
+def main(app):
+    global base
+    global config_data
+    base = Dir(app)
+    if base.config_path.exists():
+        with open(base.config_path, encoding="utf8") as fh:
+            config_data = yaml.safe_load(fh.read())
+
 # simple attributes to have this calculated at one place only
+base = None
+config_data = None
 app = appdirs.AppDirs("certmail")
+main(app)
 
-data_basedir = ensure_dir_exists(Path(app.user_data_dir))
-cache_basedir = ensure_dir_exists(Path(app.user_cache_dir))
-config_basedir = ensure_dir_exists(Path(app.user_config_dir))
-
-config_path = config_basedir.joinpath("config.cfg")
-
-if config_path.exists():
-    with open(config_path, encoding="utf8") as fh:
-        config_data = yaml.safe_load(fh.read())

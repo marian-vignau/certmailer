@@ -16,12 +16,10 @@
 #
 # For further info, check
 
-
-
 __author__ = "María Andrea Vignau"
 
 
 import sys
 import test
 
-from src.commandline import cli
+from src.cli import cli

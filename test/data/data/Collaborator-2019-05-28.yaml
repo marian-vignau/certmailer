@@ -1,0 +1,14 @@
+- {additional_info: '', address: '', assignation: '', event_user__user__date_joined: '2018-04-08
+    19:46:01', event_user__user__email: mavignau@protonmail.com, event_user__user__first_name: "Mar\xED\
+    a Andrea", event_user__user__last_name: Vignau, event_user__user__username: mavignau,
+  phone: '', time_availability: ''}
+- {additional_info: '', address: '', assignation: Charlas, event_user__user__date_joined: '2018-04-18
+    23:45:51', event_user__user__email: protox@protonmail.com, event_user__user__first_name: Roberto, 
+    event_user__user__last_name: Rodriguez, event_user__user__username: mavignau,
+  phone: 0001, time_availability: "Ma\xF1ana"}
+- {additional_info: Responsable de Operaciones de la Aceleradora de Empresas, 
+    address: Catamarca 555, assignation: Charlas, event_user__user__date_joined: '2018-04-16
+    00:31:33', event_user__user__email: eljavito@protonmail.com, event_user__user__first_name: Javier,
+  event_user__user__last_name: Benitez, event_user__user__username: javi, phone: 0001,
+  time_availability: "Ma\xF1ana"}
+

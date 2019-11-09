@@ -19,7 +19,7 @@
 __author__ = "María Andrea Vignau"
 import click
 from .utils import load_yml, save_yml
-from . import config_path
+from . import base
 
 class KeyString(click.ParamType):
     name = "integer"
@@ -55,7 +55,7 @@ def cli():
 def config(api_key, secret_key):
     """Init or edit the configuration.
     Includes private/public key from mailjet"""
-    config_data = load_yml(config_path)
+    config_data = load_yml(base.config_path)
     config_data["api_key"] = api_key
     config_data["secret_key"] = secret_key
-    save_yml(config_path, config_data)
+    save_yml(base.config_path, config_data)

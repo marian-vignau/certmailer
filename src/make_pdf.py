@@ -67,7 +67,7 @@ def _parse_header(job, header1, header2):
         idx = first_cert_col + i
         evt = header2[idx]
         cert_types.append({
-            "event": job.config["title"],
+            "title": job.config["title"],
             "category": cat,
             "suffix": f"-{evt}-{cat}"
         })

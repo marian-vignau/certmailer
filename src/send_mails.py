@@ -33,27 +33,27 @@ def _load_mails(job):
     template_path = job.relative_path("emailtemplate.yaml")
     with template_path.open() as fh:
         email_template = fh.read()
-    for file in job.outbox.iterdir():
-        if file.suffix == ".yaml":
-            with file.open("r", encoding="utf8") as fh:
-                email_data = yaml.safe_load(fh)
-                email_data.update(job.config)
-                attach = [_load_attachment(job, f) for f in email_data["attach"]]
-                k = email_template.format(**email_data)
-                message = yaml.safe_load(k)
-                default_attachs = message.get("Attachments", [])
-                for attach in default_attachs:
-                    filename = attach["Filename"][:-4]
-                    email_data["attach"].append(filename)
-                message["Attachments"] = attach
-
-                data = {"Messages": [message]}
-                yield email_data, data
+    for file in job.outbox.glob("*.yaml"):
+        with file.open("r", encoding="utf8") as fh:
+            email_data = job.config.copy()
+            email_data.update(yaml.safe_load(fh))
+            k = email_template.format(**email_data)
+            message = yaml.safe_load(k)
+            if "Attachments" not in message:
+                message["Attachments"] = []
+            for f in email_data["attach"]:
+                message["Attachments"].append(_load_attachment(job, f))
+            for attach in message["Attachments"]:
+                filename = attach["Filename"][:-4]
+                email_data["attach"].append(filename)
+            data = {"Messages": [message]}
+            yield email_data, data
 
 
 def _load_attachment(job, file_name):
     file_name = file_name.lower() + ".pdf"
-    with open(job.outbox.joinpath(file_name), "rb") as fh:  # open binary file in read mode
+    # open binary file in read mode
+    with open(job.outbox.joinpath(file_name), "rb") as fh:
         file_64_encode = base64.standard_b64encode(fh.read())
     return {
         "ContentType": mimetypes.guess_type(file_name)[0],
@@ -72,8 +72,9 @@ def _sendmail(data):
 
 def _move_to_outbox(job, filename, suffix):
     src = job.outbox.joinpath(f"{filename}.{suffix}")
-    dst = job.sent.joinpath(f"{filename}.{suffix}")
-    shutil.move(src=str(src), dst=str(dst))
+    if src.exists():
+        dst = job.sent.joinpath(f"{filename}.{suffix}")
+        shutil.move(src=str(src), dst=str(dst))
 
 
 def send_mails(job, max_mails=0):
@@ -88,10 +89,9 @@ def send_mails(job, max_mails=0):
         prog.update(1)
         result = _sendmail(data)
         if result.status_code == 200:  # its OK
-            #_move_to_outbox(email_data["filename"], "yaml")
+            _move_to_outbox(job, email_data["filename"], "yaml")
             for filename in email_data["attach"]:
-                pass
-                #_move_to_outbox(filename.lower(), "pdf")
+                _move_to_outbox(job, filename.lower(), "pdf")
             attemp = 0
             while True:
                 result_path = job.sent.joinpath(

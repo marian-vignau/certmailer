@@ -86,6 +86,7 @@ def attach():
 @click.argument("filenames", nargs=-1, type=click.Path(exists=True, resolve_path=True))
 def add(filenames):
     """Add a fixed attachment"""
+    print("::::", filenames)
     jobs.current_job.attach.add(filenames)
     click.echo("Use like <img src=\\'cid:LOGO\\'> on >> certmail edit html")
 
@@ -131,3 +132,8 @@ def remove(filename):
     """Remove a data source from current job."""
     if jobs.current_job and filename in jobs.current_job.data.list():
         jobs.current_job.data.remove(filename)
+    else:
+        click.echo("The file wasn't find in the list of attached. Any mistake?")
+        click.echo(jobs.current_job.data)
+        sys.exit(1)
+

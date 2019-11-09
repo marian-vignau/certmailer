@@ -23,14 +23,15 @@ import zipfile
 
 import click
 
-from . import data_basedir, cache_basedir, ensure_dir_exists, config_path
+from . import base
+from . import ensure_dir_exists
 from .utils import load_yml, save_yml
 
 
 class Jobs(object):
     def __init__(self):
         """Load the data structure"""
-        self.config = load_yml(config_path)
+        self.config = load_yml(base.config_path)
         current = self.config.get("current_job", "")
         self._current_job = None
         if current:
@@ -38,7 +39,7 @@ class Jobs(object):
 
     def list(self):
         """List all the jobs."""
-        return [job.name for job in data_basedir.iterdir()]
+        return [job.name for job in base.data_basedir.iterdir()]
 
     @property
     def current_job(self):
@@ -48,23 +49,24 @@ class Jobs(object):
     @current_job.setter
     def current_job(self, name):
         """Change from one job to other"""
-        if name is None:
-            self._current_job = None
-            save_yml(config_path, {"current_job": None})
-        elif name in self.list():
-            self._current_job = Job(name)
-            save_yml(config_path, {"current_job": name})
-        elif name:
-            raise KeyError(f"Job {name} not found")
+        if name != self._current_job.name:
+            if name is None:
+                self._current_job = None
+                save_yml(base.config_path, {"current_job": None})
+            elif name in self.list():
+                self._current_job = Job(name)
+                save_yml(base.config_path, {"current_job": name})
+            elif name:
+                raise KeyError(f"Job {name} not found")
 
     def new(self, name, job_data):
         """Creates the basic template of a job"""
-        job = Job(name, job_data)
-        self.current_job = name
+        self._current_job = Job(name, job_data)
+        save_yml(base.config_path, {"current_job": name})
 
     def remove(self, name):
         """Removes a job folder."""
-        shutil.rmtree(data_basedir.joinpath(name))
+        shutil.rmtree(base.data_basedir.joinpath(name))
         if self._current_job and \
                 name == self.current_job.name:
             if self.list():
@@ -87,7 +89,7 @@ class Job(object):
     def __init__(self, name, job_data=None):
         """Configure a job"""
         self.name = name
-        self.path = ensure_dir_exists(data_basedir.joinpath(name))
+        self.path = ensure_dir_exists(base.data_basedir.joinpath(name))
         self.config_path = self.relative_path("config.yml")
         if self.config_path.exists():
             self.config = load_yml(self.config_path)
@@ -99,7 +101,6 @@ class Job(object):
             zip_ref.close()
         save_yml(self.config_path, self.config)
         self.categories = load_yml(self.relative_path("categories.yaml"))
-
         self._init_dir(name)
 
     def relative_path(self, filename):
@@ -110,7 +111,7 @@ class Job(object):
         self.attach = JobFolder(self, "attach")
         self.data = JobFolder(self, "data")
 
-        self.cache = ensure_dir_exists(cache_basedir.joinpath(name))
+        self.cache = ensure_dir_exists(base.cache_basedir.joinpath(name))
         self.outbox = ensure_dir_exists(self.cache.joinpath("outbox"))
         self.sent = ensure_dir_exists(self.cache.joinpath("sent"))
 

@@ -86,6 +86,7 @@ def openfile(filename, editor=None):
             click.edit(filename=str(filepath))
     else:
         click.secho(f"File {filename} doesn't exists", fg="red")
+        sys.exit(1)
 
 
 @cli.group()

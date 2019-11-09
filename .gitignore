@@ -5,3 +5,4 @@
 *.py[cod]
 *.pyc
 *$py.class
+/test/test_data/
