@@ -17,30 +17,21 @@
 # For further info, check
 
 __author__ = "María Andrea Vignau"
-
-from pathlib import Path
-import sys
 import yaml
 
-config = None
+
+def load_yml(filepath):
+    """Loads yaml data."""
+    data = {}
+    if filepath.exists():
+        with open(filepath, encoding="utf8") as fh:
+            data = yaml.safe_load(fh.read())
+    return data
 
 
-OUTBOX = Path("work/outbox")
-CSVPATH = Path("work/cert_sheet.csv")
-SENTMAIL = Path("work/sent")
-CONFIGPATH = Path("work/config")
-MAILDATA = CONFIGPATH.joinpath("email.yaml")
-MAILTEMPLATE = Path("work/email_template.yaml")
-CERTTEMPLATE = CONFIGPATH.joinpath("certificate.svg")
-DATAPATH = Path("work/data")
-
-for x in [OUTBOX, SENTMAIL, CONFIGPATH, MAILDATA, CERTTEMPLATE, DATAPATH]:
-    if not x.exists():
-        print(f"Path {x} is missing")
-        sys.exit(2)
-try:
-    with CONFIGPATH.joinpath("config.yaml").open("r", encoding="utf8") as fh:
-        config = yaml.safe_load(fh)
-except FileNotFoundError:
-    print("You must init working directories")
-    sys.exit(2)
+def save_yml(filepath, new_data):
+    """Updates and saves yaml data."""
+    data = load_yml(filepath)
+    data.update(new_data)
+    with open(filepath, "w", encoding="utf8") as fh:
+        fh.write(yaml.safe_dump(data))

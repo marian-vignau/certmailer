@@ -1,0 +1,6 @@
+Hola {name}!!.
+
+Adjuntamos certificados del {title}
+
+¡Nos vemos pronto!.
+

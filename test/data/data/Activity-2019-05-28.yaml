@@ -1,0 +1,19 @@
+- {abstract: "Breve historia de las motivaciones a hacer software libre y porqu\xE9\
+    \ mucho del software que ahora usamos es libre y open source", activity_type: 3,
+  additional_info: '', created_at: '2018-04-19 03:12:10', cropping: '0,2,601,389',
+  end_date: '2018-04-28 09:35:00', event: 4, id: 80, image: images_thumbnails/presentacion_7cyFgaW.png,
+  is_dummy: '0', justification: '', labels: "motivaci\xF3n, historia, linux, gnu,\
+    \ software libre", level: '1', long_description: "\xBFQue nos motiva a hacer soft\
+    \ libre?\r\n\r\nC\xF3mo empieza el soft libre\r\n\xBFQu\xE9 es el c\xF3digo fuente?\
+    \ Las 4 libertades\r\nStallman, GNU y la Free Software Foundation\r\nGPL, la licencia\
+    \ contagiosa\r\nEmpieza Linus con su proyecto de estudiante. C\xF3mo se agregan\
+    \ colaboradores expertos en Unix\r\nLibreOffice y Blender, fracaso comercial,\
+    \ \"vaquita virtual\" y posterior continuidad.\r\nThe Open Document Foundation:\
+    \ liberarse de los formatos cerrados de Microsoft.\r\nEmpieza la web: Netscape,\
+    \ la hegemon\xEDa en la web y Microsoft contraataca con Explorer\r\nLiberaci\xF3\
+    n de c\xF3digo Netscape, nace Mozilla Firefox\r\nJavascript, herramienta clave\
+    \ para las nuevas herramientas de la nube.\r\nNuevas amenazas: Android, IoT y\
+    \ la nube, el \"Gran Hermano\" que vigila y seduce.", num_vote_down: 0, num_vote_up: 0,
+  owner: 10, presentation: '', room: 22, speaker_bio: '', speakers_names: "Mar\xED\
+    a Andrea Vignau", start_date: '2018-04-28 09:00:00', status: '2', title: "\xBF\
+    Y porqu\xE9 hacen Software Libre?", updated_at: '2019-01-25 04:35:43', vote_score: 0}
