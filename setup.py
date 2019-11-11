@@ -38,15 +38,30 @@ Used to create a command-line tool with setup tools
 
 from setuptools import setup
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
 setup(
     name='certmailer',
     version='0.1',
     py_modules=['src'],
     install_requires=[
-        'PyYaml', "mailjet_rest", "certg", "appdirs"
+        'PyYaml', "mailjet_rest", "certg", "appdirs", "click"
     ],
     entry_points='''
         [console_scripts]
         certmail=certmail:cli
     ''',
+    author="María Andrea Vignau",
+    author_email="mavignau@gmail.com",
+    description="To download, create and mail certificate on events",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/pypa/sampleproject",
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+    ],
+    python_requires='>=3.6',
 )

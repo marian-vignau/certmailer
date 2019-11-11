@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="297mm"
+   height="210mm"
+   viewBox="0 0 297 210"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="architecture.svg"
+   inkscape:export-filename="/home/marian/Documentos/charlas/certmail/Architecture.png"
+   inkscape:export-xdpi="90.032875"
+   inkscape:export-ydpi="90.032875">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.0734524"
+     inkscape:cx="354.27537"
+     inkscape:cy="358.02279"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:snap-global="false"
+     showguides="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1029"
+     inkscape:window-x="0"
+     inkscape:window-y="1080"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-87)">
+    <rect
+       y="126.03617"
+       x="20.797417"
+       height="147.54832"
+       width="64.484276"
+       id="rect1097"
+       style="opacity:1;vector-effect:none;fill:#00ffff;fill-opacity:1;stroke:none;stroke-width:0.78187686;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <rect
+       style="opacity:1;vector-effect:none;fill:#ddff55;fill-opacity:1;stroke:none;stroke-width:0.9434185;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect1074"
+       width="129.30823"
+       height="107.12579"
+       x="160.05798"
+       y="143.28969" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot825"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;line-height:125%;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="matrix(0,-0.25285867,0.25285867,0,-3.5181756,254.59519)"><flowRegion
+         id="flowRegion827"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#000000"><rect
+           id="rect829"
+           width="710.79077"
+           height="45.647114"
+           x="38.194523"
+           y="54.031292"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#000000" /></flowRegion><flowPara
+         id="flowPara831">Command line interface</flowPara></flowRoot>    <g
+       id="g1081"
+       transform="translate(13.802817,-2.559448)">
+      <rect
+         style="opacity:1;vector-effect:none;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.79373121;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect833"
+         width="56.2514"
+         height="44.520176"
+         x="10.756778"
+         y="132.86372" />
+      <flowRoot
+         xml:space="preserve"
+         id="flowRoot841"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;line-height:125%;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0.25285867,0,0,0.25285867,4.2385658,122.71294)"><flowRegion
+           id="flowRegion837"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#ffffff"><rect
+             id="rect835"
+             width="189.96039"
+             height="141.34003"
+             x="38.194523"
+             y="54.031292"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#ffffff" /></flowRegion><flowPara
+           id="flowPara839">CLI Config</flowPara></flowRoot>    </g>
+    <g
+       id="g1088"
+       transform="translate(-5.3282072,-8.3802777)">
+      <rect
+         y="186.10315"
+         x="29.887802"
+         height="44.520176"
+         width="56.2514"
+         id="rect843"
+         style="opacity:1;vector-effect:none;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.79373121;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <flowRoot
+         transform="matrix(0.25285867,0,0,0.25285867,22.630143,177.18478)"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;line-height:125%;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         id="flowRoot851"
+         xml:space="preserve"><flowRegion
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#ffffff"
+           id="flowRegion847"><rect
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#ffffff"
+             y="54.031292"
+             x="38.194523"
+             height="147.18864"
+             width="233.825"
+             id="rect845" /></flowRegion><flowPara
+           id="flowPara849">CLI Jobs</flowPara></flowRoot>    </g>
+    <g
+       id="g1095"
+       transform="translate(-69.318373,-13.67195)">
+      <rect
+         style="opacity:1;vector-effect:none;fill:#0000ff;fill-opacity:1;stroke:none;stroke-width:0.79373121;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect853"
+         width="56.2514"
+         height="44.520176"
+         x="93.877968"
+         y="239.34259" />
+      <flowRoot
+         xml:space="preserve"
+         id="flowRoot861"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;line-height:125%;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0.25285867,0,0,0.25285867,85.880882,230.67068)"><flowRegion
+           id="flowRegion857"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#ffffff"><rect
+             id="rect855"
+             width="233.825"
+             height="147.18864"
+             x="38.194523"
+             y="54.031292"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#ffffff" /></flowRegion><flowPara
+           id="flowPara859">CLI Edit Run</flowPara></flowRoot>    </g>
+    <rect
+       y="178.60063"
+       x="94.863571"
+       height="44.520176"
+       width="56.2514"
+       id="rect867"
+       style="opacity:1;vector-effect:none;fill:#ff6600;fill-opacity:1;stroke:none;stroke-width:0.79373121;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <flowRoot
+       transform="matrix(0.25285867,0,0,0.25285867,88.345346,168.94281)"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;line-height:125%;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="flowRoot875"
+       xml:space="preserve"><flowRegion
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#ffffff"
+         id="flowRegion871"><rect
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#ffffff"
+           y="54.031292"
+           x="38.194523"
+           height="147.18864"
+           width="233.825"
+           id="rect869" /></flowRegion><flowPara
+         id="flowPara873">Jobs</flowPara><flowPara
+         id="flowPara877">Job</flowPara><flowPara
+         id="flowPara879">JobFolder</flowPara></flowRoot>    <g
+       id="g1104">
+      <rect
+         y="149.20518"
+         x="164.74109"
+         height="44.520176"
+         width="56.2514"
+         id="rect881"
+         style="opacity:1;vector-effect:none;fill:#338000;fill-opacity:1;stroke:none;stroke-width:0.79373121;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <flowRoot
+         transform="matrix(0.25285867,0,0,0.25285867,158.53434,139.54735)"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;line-height:125%;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         id="flowRoot889"
+         xml:space="preserve"><flowRegion
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#ffffff"
+           id="flowRegion885"><rect
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#ffffff"
+             y="54.031292"
+             x="38.194523"
+             height="147.18864"
+             width="233.825"
+             id="rect883" /></flowRegion><flowPara
+           id="flowPara887">Make CSV</flowPara></flowRoot>    </g>
+    <g
+       id="g1126"
+       transform="translate(0,2.9577465)">
+      <rect
+         style="opacity:1;vector-effect:none;fill:#338000;fill-opacity:1;stroke:none;stroke-width:0.79373121;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect891"
+         width="56.2514"
+         height="44.520176"
+         x="164.86995"
+         y="196.7756" />
+      <flowRoot
+         xml:space="preserve"
+         id="flowRoot899"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;line-height:125%;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0.25285867,0,0,0.25285867,158.68648,187.11777)"><flowRegion
+           id="flowRegion895"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#ffffff"><rect
+             id="rect893"
+             width="233.825"
+             height="147.18864"
+             x="38.194523"
+             y="54.031292"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#ffffff" /></flowRegion><flowPara
+           id="flowPara897">Make PDF</flowPara></flowRoot>    </g>
+    <g
+       id="g1111"
+       transform="translate(0,-0.4929657)">
+      <rect
+         y="149.69815"
+         x="227.92641"
+         height="44.520176"
+         width="56.2514"
+         id="rect901"
+         style="opacity:1;vector-effect:none;fill:#338000;fill-opacity:1;stroke:none;stroke-width:0.79373121;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <flowRoot
+         transform="matrix(0.25285867,0,0,0.25285867,221.69074,140.0403)"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;line-height:125%;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         id="flowRoot909"
+         xml:space="preserve"><flowRegion
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#ffffff"
+           id="flowRegion905"><rect
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#ffffff"
+             y="54.031292"
+             x="38.194523"
+             height="147.18864"
+             width="233.825"
+             id="rect903" /></flowRegion><flowPara
+           id="flowPara907">Make Template</flowPara></flowRoot>    </g>
+    <g
+       id="g1119"
+       transform="translate(0.68754578,1.7253704)">
+      <rect
+         style="opacity:1;vector-effect:none;fill:#338000;fill-opacity:1;stroke:none;stroke-width:0.79373121;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect911"
+         width="56.2514"
+         height="44.520176"
+         x="227.23886"
+         y="198.00798" />
+      <flowRoot
+         xml:space="preserve"
+         id="flowRoot919"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;line-height:125%;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0.25285867,0,0,0.25285867,220.87881,188.35016)"><flowRegion
+           id="flowRegion915"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#ffffff"><rect
+             id="rect913"
+             width="233.825"
+             height="147.18864"
+             x="38.194523"
+             y="54.031292"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#ffffff" /></flowRegion><flowPara
+           id="flowPara917">Send</flowPara><flowPara
+           id="flowPara921">Mails</flowPara></flowRoot>    </g>
+    <rect
+       y="174.5925"
+       x="167.27087"
+       height="20.365246"
+       width="58.223232"
+       id="rect975"
+       style="opacity:1;vector-effect:none;fill:#aa8800;fill-opacity:1;stroke:#ffffff;stroke-width:1.346;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <flowRoot
+       transform="matrix(0.25285867,0,0,0.25285867,162.72448,164.6882)"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;line-height:125%;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="flowRoot983"
+       xml:space="preserve"><flowRegion
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#ffffff"
+         id="flowRegion979"><rect
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#ffffff"
+           y="54.031292"
+           x="38.194523"
+           height="147.18864"
+           width="233.825"
+           id="rect977" /></flowRegion><flowPara
+         id="flowPara981">Create List</flowPara><flowPara
+         id="flowPara1006" /></flowRoot>    <flowRoot
+       transform="matrix(0.25285867,0,0,0.25285867,186.53937,240.28665)"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;line-height:125%;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="flowRoot1172"
+       xml:space="preserve"><flowRegion
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#000000"
+         id="flowRegion1168"><rect
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#000000"
+           y="54.031292"
+           x="38.194523"
+           height="45.647114"
+           width="710.79077"
+           id="rect1166" /></flowRegion><flowPara
+         id="flowPara1170">Main modules</flowPara></flowRoot>  </g>
+</svg>
