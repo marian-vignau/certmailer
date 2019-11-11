@@ -29,6 +29,7 @@ from .utils import load_yml, save_yml
 
 
 class Jobs(object):
+    """Jobs manager and conteiner. Singleton."""
     def __init__(self):
         """Load the data structure"""
         self.config = load_yml(base.config_path)
@@ -75,6 +76,7 @@ class Jobs(object):
                 self.current_job = None
 
     def __str__(self):
+        """A human-readable representation of the job string"""
         if self.list():
             s = ', '.join(self.list())
             if self.current_job:
@@ -108,6 +110,7 @@ class Job(object):
         return self.path.joinpath(filename)
 
     def _init_dir(self, name):
+        """Creates the folder structure"""
         self.attach = JobFolder(self, "attach")
         self.data = JobFolder(self, "data")
 
@@ -118,6 +121,7 @@ class Job(object):
         #self.p = Paths(self.path)
 
     def __str__(self):
+        """An human-readable expresion of key information about the job"""
         if not self.config:
             return self.name
         s = "{name} ->"
@@ -125,10 +129,11 @@ class Job(object):
         s += " from {sender_name} <{sender_email}>"
         s += " / inscrip {from_date:%d/%m/%Y}"
         s += " to {to_date:%d/%m/%Y}"
-        s += "\n {subject}"
+        s += '\n Subj: "{subject}"'
         return s.format(**self.config)
 
     def __repr__(self):
+        """Shows the data inside the job object"""
         s = map(str, [self, self.attach, self.data])
         return '\n'.join(s)
 

@@ -107,8 +107,8 @@ def list():
 @do.command()
 def template():
     """Parses and creates and email template."""
-    from .do_template import do_template
-    do_template(jobs.current_job)
+    from .make_template import make_template
+    make_template(jobs.current_job)
 
 
 @do.command()

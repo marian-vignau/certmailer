@@ -16,8 +16,6 @@
 #
 # For further info, check
 
-import base64
-import mimetypes
 import shutil
 
 from mailjet_rest import Client
@@ -25,7 +23,7 @@ import yaml
 import click
 
 from .jobs import jobs
-from .utils import save_yml
+from .utils import save_yml, load_attachment
 
 
 def _load_mails(job):
@@ -42,7 +40,8 @@ def _load_mails(job):
             if "Attachments" not in message:
                 message["Attachments"] = []
             for f in email_data["attach"]:
-                message["Attachments"].append(_load_attachment(job, f))
+                file = job.outbox.joinpath(f.lower() + ".pdf")
+                message["Attachments"].append(load_attachment(file))
             for attach in message["Attachments"]:
                 filename = attach["Filename"][:-4]
                 email_data["attach"].append(filename)
@@ -50,19 +49,8 @@ def _load_mails(job):
             yield email_data, data
 
 
-def _load_attachment(job, file_name):
-    file_name = file_name.lower() + ".pdf"
-    # open binary file in read mode
-    with open(job.outbox.joinpath(file_name), "rb") as fh:
-        file_64_encode = base64.standard_b64encode(fh.read())
-    return {
-        "ContentType": mimetypes.guess_type(file_name)[0],
-        "Filename": file_name,
-        "Base64Content": file_64_encode.decode("ascii"),
-    }
-
-
 def _sendmail(data):
+    """Calls the api to actually send the mails"""
     keys = (jobs.config["api_key"], jobs.config["secret_key"])
     mailjet = Client(auth=keys, version="v3.1")
     result = mailjet.send.create(data=data)
@@ -71,6 +59,7 @@ def _sendmail(data):
 
 
 def _move_to_outbox(job, filename, suffix):
+    """Moves to other folders sended information"""
     src = job.outbox.joinpath(f"{filename}.{suffix}")
     if src.exists():
         dst = job.sent.joinpath(f"{filename}.{suffix}")
