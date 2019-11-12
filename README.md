@@ -7,31 +7,48 @@ Uses exported information from  **EventoL**,
 generate **certificates in PDF**, and **mail them** to the corresponding
 receiver.
 
-![Bilby Stampede](doc/certmail.png)
+![Bilby Stampede](doc/cheatsheet.png)
 
+## Install
+
+pip install certmail
+
+## Usage
 
 Create an account in MailJet, to send SMTP.
 
-Create a work directory:
+Configure
 
-> python -m src.py init
+> certmail config
 
-Edit config.yaml and add public and private key
+Type the api key and the secret key give to you by MailJet service
 
-Edit email.yaml and create the template of email
+Create a new job
 
-Edit certificate.svg and create the template of certificates
+> certmail new <name>
+
+### Add data
 
 Go to the **EventoL** instance, login, and choose https://eventol.domain.com/admin
 
 Select Activity, Attendees, Collaborators and Installers,
 and export one by one to yaml format.
 
-Put this files on «work/data» folder, created with init command
+Add them using
 
-> python -m src.py makecsv
+> certmail data add *.yaml
+
+Create the list of recipients
+
+> certmail do list
 
 this will parse the yaml files exported from **EventoL**, and create a csv.
+
+Check the list of receivers
+
+> certmail edit receivers
+
+It'll open the default editor on every case.
 
 If you don't want that somebody receives an email, clear «send mail?» cell.
 
@@ -39,16 +56,41 @@ If you want to add some certificate, add **yes** to the corresponding cell.
 
 And if you don't want to send a certificate, clear the corresponding cell.
 
-> python -m src.py makepdf
+
+### Add attachments and edit format
+
+Add attachments using
+
+> certmail attach add <filename>
+
+Edit email's text part
+
+> certmail edit text
+
+Edit email's HTML part
+
+> certmail edit html
+
+Edit certificate in InkScape
+
+> certmail edit certificate
+
+Create the template
+
+> certmail do template
+
+## Run everything
+
+> certmail do certificates
 
 This will create the certificates pdf to send, and yaml files with
 all the info of every mail that will be sent.
-All the information will be stored on the «work/outbox» directory.
+All the information will be stored on the «cache/<job>/outbox» directory.
 
-> python -m src.py sendmails
+> certmail do certificates
 
 This will send every mail. If an email is successfully sent, all it's data'll
-move to «work/sent» folder, and a json with information of resulting
+move to «cache/<job>/sent» folder, and a json with information of resulting
 email will be stored.
 
 ## Requirements
@@ -57,6 +99,7 @@ email will be stored.
 - PyYaml
 - certg
 - mailjet-rest
+- click
 
 ## Dev Instructions
 ```
@@ -76,7 +119,6 @@ email will be stored.
 
 ## TODO
 
-* Testing
 * Extend documentation
 * Digital signature
 

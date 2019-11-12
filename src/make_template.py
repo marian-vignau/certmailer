@@ -20,27 +20,17 @@ __author__ = "María Andrea Vignau"
 
 # guide in https://dev.mailjet.com/guides/?python#send-with-attached-files
 
-import base64
-import mimetypes
 import re
 
 import click
-from .utils import load_yml, save_yml
+from .utils import load_yml, save_yml, load_attachment
 
 
 def _new_inline(attach_path, file_stem):
     """Append inline attachments to email html"""
-    print(attach_path, file_stem)
-    newinline = False
+    newinline = []
     for file in attach_path.glob(file_stem + ".*"):
-        with file.open("rb") as fh:  # open binary file in read mode
-            file_64_encode = base64.standard_b64encode(fh.read())
-            newinline = {
-                "ContentType": mimetypes.guess_type(str(file))[0],
-                "Filename": file.name,
-                "ContentID": file.stem,
-                "Base64Content": file_64_encode.decode("ascii"),
-            }
+        newinline.append(load_attachment(file, add_id=True))
     return newinline
 
 
@@ -50,14 +40,8 @@ def _default_attachments(attach_path, data, used):
     attached = []
     for file in attach_path.iterdir():
         if not file.name in used:
-            with file.open("rb") as fh:  # open binary file in read mode
-                file_64_encode = base64.standard_b64encode(fh.read())
-                newattach = {
-                    "ContentType": mimetypes.guess_type(str(file))[0],
-                    "Filename": file.name,
-                    "Base64Content": file_64_encode.decode("ascii"),
-                }
-                data["Attachments"].append(newattach)
+            newattach = load_attachment(file)
+            data["Attachments"].append(newattach)
             attached.append(file.name)
     return attached
 
@@ -71,11 +55,10 @@ def _add_inlines(job, data):
     added = []
 
     for match in re.finditer(pattern, html):
-        print(match.group(0))
         inline = _new_inline(job.attach.path, match.group(1))
         if inline:
-            added.append(inline["Filename"])
-            data["InlinedAttachments"].append(inline)
+            added.append(match.group(1))
+            data["InlinedAttachments"].extend(inline)
         else:
             missed.append(match.group(1))
     return missed, added
@@ -87,7 +70,7 @@ def load(job, filename):
         return fh.read()
 
 
-def do_template(job):
+def make_template(job):
     """Creates the email template that includes inline attachments"""
     config = load_yml(job.relative_path("config.yml"))
     data = {"From": {"Email": config["sender_email"],

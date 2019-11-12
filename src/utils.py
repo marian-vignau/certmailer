@@ -18,6 +18,8 @@
 
 __author__ = "María Andrea Vignau"
 import yaml
+import mimetypes
+import base64
 
 
 def load_yml(filepath):
@@ -35,3 +37,18 @@ def save_yml(filepath, new_data):
     data.update(new_data)
     with open(filepath, "w", encoding="utf8") as fh:
         fh.write(yaml.safe_dump(data))
+
+
+def load_attachment(file, add_id=False):
+    """"""
+    # open binary file in read mode
+    with file.open("rb") as fh:  # open binary file in read mode
+        file_64_encode = base64.standard_b64encode(fh.read())
+        attachment = {
+            "ContentType": mimetypes.guess_type(str(file))[0],
+            "Filename": file.name,
+            "Base64Content": file_64_encode.decode("ascii"),
+        }
+        if add_id:
+            attachment["ContentID"] = file.stem
+    return attachment

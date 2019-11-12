@@ -6,3 +6,4 @@
 *.pyc
 *$py.class
 /test/test_data/
+/dist/

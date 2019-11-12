@@ -36,17 +36,42 @@ Used to create a command-line tool with setup tools
 >>> src --help
 """
 
-from setuptools import setup
+import setuptools
 
-setup(
-    name='certmailer',
-    version='0.1',
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
+setuptools.setup(
+    name='certmail',
+    version='0.4',
     py_modules=['src'],
     install_requires=[
-        'PyYaml', "mailjet_rest", "certg", "appdirs"
+        'PyYaml', "mailjet_rest", "certg", "appdirs", "click"
     ],
     entry_points='''
         [console_scripts]
         certmail=certmail:cli
     ''',
+    author="María Andrea Vignau",
+    author_email="mavignau@gmail.com",
+    description="To download, create and mail certificate on events",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/marian-vignau/certmailer",
+    packages=["src"],
+    scripts=["certmail.py"],
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+        "Development Status :: 5 - Production/Stable",
+        "Environment :: Console",
+        "Intended Audience :: Information Technology",
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+        "Natural Language :: English",
+        "Programming Language :: Python :: 3",
+        "Topic :: Communications :: Email"
+    ],
+    python_requires='>=3.6',
+    setup_requires=['wheel']
 )

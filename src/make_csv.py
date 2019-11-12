@@ -18,12 +18,12 @@
 
 __author__ = "María Andrea Vignau"
 
-import sys
 import click
 from . import create_list
 
 
 def make_header(job):
+    """Creates two first rows, that are used as headers"""
     certificates = [act["description"] for act in job.categories.values()]
     header = ["name", "email", "send"]
     header.extend(certificates)
@@ -35,6 +35,8 @@ def make_header(job):
 
 
 def process_list(sendmail, job):
+    """Add a row in csv for every receiver,
+    and mark every certificate that must be generated"""
     do = create_list.MyList(job)
     for email, value in do.list.items():
         name = value.get("first_name", "") + " "
@@ -50,11 +52,13 @@ def process_list(sendmail, job):
     click.echo(do.stats)
 
 def make_csv(job):
+    """Creates the text file with the selected recipients
+    and certificates to generate"""
+
     receivers = job.relative_path("receivers.csv")
 
     if receivers.exists():
         click.secho(f"Files exists in {receivers}", fg="red")
-
 
     row = 0
     with receivers.open("w", encoding="utf8") as fh:
