@@ -26,10 +26,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.28542677"
-     inkscape:cx="1451.4159"
-     inkscape:cy="2948.0254"
+     inkscape:cx="657.86735"
+     inkscape:cy="2934.0113"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer2"
      showgrid="false"
      inkscape:snap-nodes="false"
      inkscape:window-width="1920"
@@ -37,9 +37,10 @@
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     showguides="false"
+     showguides="true"
      inkscape:measure-start="0,0"
-     inkscape:measure-end="0,0" />
+     inkscape:measure-end="0,0"
+     inkscape:guide-bbox="true" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -48,15 +49,14 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
      inkscape:groupmode="layer"
      id="layer2"
-     inkscape:label="Capa 2"
-     sodipodi:insensitive="true">
+     inkscape:label="Capa 2">
     <rect
        transform="translate(0,892)"
        style="opacity:0.87000002;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:#e6e6e6;stroke-width:4.26499987;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
@@ -65,8 +65,8 @@
        height="785.51727"
        x="30.35371"
        y="-875.75702"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-xdpi="57.110001"
+       inkscape:export-ydpi="57.110001" />
     <path
        transform="translate(0,892)"
        style="opacity:1;vector-effect:none;fill:#aa0000;fill-opacity:1;stroke:#ffffff;stroke-width:0.49999997;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
@@ -104,7 +104,7 @@
          id="tspan5650"
          x="76.173088"
          y="-813.00781"
-         style="stroke-width:0.26458332;fill:#ffffff;">certmail</tspan></text>
+         style="fill:#ffffff;stroke-width:0.26458332">certmail</tspan></text>
   </g>
   <g
      inkscape:label="Capa 1"
@@ -116,15 +116,15 @@
        id="rect6569"
        width="350.56873"
        height="408.78485"
-       x="369.09091"
+       x="369.67871"
        y="-534.62482"
        ry="25.454788" />
     <rect
-       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:#999999;stroke-width:1.34599996;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:#999999;stroke-width:1.35502803;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect6495"
-       width="346.33914"
+       width="351.00073"
        height="232.36804"
-       x="371.78897"
+       x="369.45816"
        y="-775.21289"
        ry="22.031115" />
     <flowRoot
@@ -140,7 +140,7 @@
            y="356.82663" /></flowRegion><flowPara
          id="flowPara842" /></flowRoot>    <g
        id="g901"
-       transform="matrix(0.59055583,0,0,0.59061294,453.49552,-625.20248)"
+       transform="matrix(0.59055583,0,0,0.59061294,477.59686,-621.49458)"
        style="stroke-width:1.16740251">
       <path
          style="opacity:1;vector-effect:none;fill:#2c89a0;fill-opacity:0.90534979;stroke:#ffffff;stroke-width:0.58370125;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
@@ -260,12 +260,12 @@
            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:64px;font-family:Consolas;-inkscape-font-specification:'Consolas Bold';fill:#ffffff;stroke-width:1.32917213" /></flowRegion><flowPara
          style="stroke-width:1.32917213"
          id="flowPara2260">&gt; do send</flowPara></flowRoot>    <rect
-       style="opacity:1;vector-effect:none;fill:#782121;fill-opacity:0.90534979;stroke:#ffffff;stroke-width:0.61973184;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;vector-effect:none;fill:#782121;fill-opacity:0.90534979;stroke:#ffffff;stroke-width:0.63337421;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect5134"
-       width="228.08119"
+       width="238.23338"
        height="22.633818"
-       x="404.93088"
-       y="-636.4151"
+       x="428.63974"
+       y="-632.70721"
        rx="0"
        ry="0" />
     <rect
@@ -756,7 +756,7 @@
     </g>
     <g
        id="g6475"
-       transform="matrix(0.6690421,0,0,0.66904191,553.14669,-228.91501)">
+       transform="matrix(0.6690421,0,0,0.66904191,554.42207,-228.91501)">
       <ellipse
          style="opacity:1;vector-effect:none;fill:#800000;fill-opacity:0.90534979;stroke:#ffffff;stroke-width:0.49999997;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
          id="ellipse5630"
@@ -779,7 +779,7 @@
     </g>
     <g
        id="g6480"
-       transform="matrix(0.6690421,0,0,0.66904191,557.95844,-128.94574)">
+       transform="matrix(0.6690421,0,0,0.66904191,554.42207,-128.94574)">
       <ellipse
          ry="26.705299"
          rx="28.168646"
@@ -850,7 +850,7 @@
            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:64px;font-family:Consolas;-inkscape-font-specification:'Consolas Bold';fill:#ffffff;stroke-width:1.32917213" /></flowRegion><flowPara
          id="flowPara2324"
          style="stroke-width:1.32917213">&gt; job new | use | list</flowPara></flowRoot>    <flowRoot
-       transform="matrix(0.19905875,0,0,0.19905875,397.42748,-684.46164)"
+       transform="matrix(0.19905875,0,0,0.19905875,421.52882,-680.75374)"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:64px;line-height:1.25;font-family:Consolas;-inkscape-font-specification:'Consolas Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.32917213"
        id="flowRoot2356"
        xml:space="preserve"><flowRegion
@@ -864,19 +864,19 @@
            id="rect2350" /></flowRegion><flowPara
          style="stroke-width:1.32917213"
          id="flowPara2354">&gt; CERTMAIL GENER</flowPara></flowRoot>    <rect
-       style="opacity:1;vector-effect:none;fill:#000080;fill-opacity:0.90534979;stroke:#ffffff;stroke-width:0.61911213;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;vector-effect:none;fill:#000080;fill-opacity:0.90534979;stroke:#ffffff;stroke-width:0.63263869;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect2358"
-       width="228.15572"
+       width="238.23424"
        height="22.581194"
-       x="404.05447"
-       y="-675.93683"
+       x="428.63937"
+       y="-672.22894"
        rx="0"
        ry="0" />
     <flowRoot
        xml:space="preserve"
        id="flowRoot2366"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:64px;line-height:1.25;font-family:Consolas;-inkscape-font-specification:'Consolas Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.32917213"
-       transform="matrix(0.19905875,0,0,0.19905875,386.03945,-687.24538)"><flowRegion
+       transform="matrix(0.19905875,0,0,0.19905875,410.14079,-683.53748)"><flowRegion
          id="flowRegion2362"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:64px;font-family:Consolas;-inkscape-font-specification:'Consolas Bold';fill:#ffffff;stroke-width:1.76669848"><rect
            id="rect2360"
@@ -932,15 +932,15 @@
        id="rect6329"
        width="163.04126"
        height="22.610132"
-       x="455.80374"
-       y="-591.41388"
+       x="479.90509"
+       y="-587.70599"
        rx="0"
        ry="0" />
     <flowRoot
        xml:space="preserve"
        id="flowRoot6337"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:64px;line-height:1.25;font-family:Consolas;-inkscape-font-specification:'Consolas Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.32917213"
-       transform="matrix(0.19905875,0,0,0.19905875,432.64377,-603.24379)"><flowRegion
+       transform="matrix(0.19905875,0,0,0.19905875,456.74511,-599.53589)"><flowRegion
          id="flowRegion6333"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:64px;font-family:Consolas;-inkscape-font-specification:'Consolas Bold';fill:#ffffff;stroke-width:1.76669848"><rect
            id="rect6331"
@@ -951,7 +951,7 @@
            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:64px;font-family:Consolas;-inkscape-font-specification:'Consolas Bold';fill:#ffffff;stroke-width:1.32917213" /></flowRegion><flowPara
          id="flowPara6335"
          style="stroke-width:1.32917213">&gt; edit recipients</flowPara></flowRoot>    <flowRoot
-       transform="matrix(0.19905875,0,0,0.19905875,386.36408,-646.08459)"
+       transform="matrix(0.19905875,0,0,0.19905875,410.46542,-642.37669)"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:64px;line-height:1.25;font-family:Consolas;-inkscape-font-specification:'Consolas Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.32917213"
        id="flowRoot6400"
        xml:space="preserve"><flowRegion

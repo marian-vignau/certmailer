@@ -11,7 +11,7 @@ receiver.
 
 ## Install
 
-pip install cermail
+pip install certmail
 
 ## Usage
 
