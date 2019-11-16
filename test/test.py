@@ -14,7 +14,7 @@ import json
 
 
 sys.path.append("..")
-import src
+import certmailer
 
 cwd = pathlib.Path("./test_data")
 cwd = cwd.absolute().resolve()
@@ -33,18 +33,18 @@ class FakeApp(object):
     user_data_dir = str(cwd)
 
 
-src.app = FakeApp()
-src.main(src.app)
+certmailer.app = FakeApp()
+certmailer.main(certmailer.app)
 
 
-from src import cli_config
-from src import cli_jobs
-from src import cli_edit_run
+from certmailer import cli_config
+from certmailer import cli_jobs
+from certmailer import cli_edit_run
 
 
-cli_config.base = src.base
-cli_jobs.jobs.base = src.base
-cli_edit_run.jobs.base = src.base
+cli_config.base = certmailer.base
+cli_jobs.jobs.base = certmailer.base
+cli_edit_run.jobs.base = certmailer.base
 
 
 def runner(command, data):
@@ -60,9 +60,9 @@ class MyTestCase(unittest.TestCase):
         pass
 
     def test_00start(self):
-        self.assertEqual(src.base.cache_basedir, cwd)
-        self.assertEqual(src.base.config_basedir, cwd)
-        self.assertEqual(src.base.data_basedir, cwd)
+        self.assertEqual(certmailer.base.cache_basedir, cwd)
+        self.assertEqual(certmailer.base.config_basedir, cwd)
+        self.assertEqual(certmailer.base.data_basedir, cwd)
         self.assertTrue(SAMPLE_DATA.exists())
 
     def test_01config(self):
@@ -138,10 +138,10 @@ class MyTestCase(unittest.TestCase):
             def json(self):
                 return {"data": "my mock"}
 
-        import src.send_mails
-        src.send_mails.jobs = src.jobs.Jobs()
+        import certmailer.send_mails
+        certmailer.send_mails.jobs = certmailer.jobs.Jobs()
 
-        cli_jobs.jobs = src.jobs.Jobs()
+        cli_jobs.jobs = certmailer.jobs.Jobs()
         with mock.patch("mailjet_rest.client.api_call") as mymock:
             mymock.return_value = Result(200)
             result = runner(cli_edit_run.cli, ['do', "send"])

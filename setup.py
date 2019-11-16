@@ -33,7 +33,7 @@ Used to create a command-line tool with setup tools
 -- Install actual module in develop mode
 >>> python setup.py develop --no-deps
 -- Use on console
->>> src --help
+>>> certmailer --help
 """
 
 import setuptools
@@ -42,9 +42,9 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name='certmail',
-    version='0.4',
-    py_modules=['src'],
+    name='certmailer',
+    version='1.0',
+    py_modules=['certmailer'],
     install_requires=[
         'PyYaml', "mailjet_rest", "certg", "appdirs", "click"
     ],
@@ -58,7 +58,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/marian-vignau/certmailer",
-    packages=["src"],
+    packages=["certmailer"],
     scripts=["certmail.py"],
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -73,5 +73,7 @@ setuptools.setup(
         "Topic :: Communications :: Email"
     ],
     python_requires='>=3.6',
-    setup_requires=['wheel']
+    setup_requires=['wheel'],
+    package_data={'certmailer': ['template.zip']},
+    include_package_data=True
 )

@@ -97,4 +97,4 @@ def send_mails(job, max_mails=0):
         if max_mails > 0 and n >= max_mails:
             break
 
-    click.echo("Total {} mails sent".format(n))
+    click.echo(f"Total {n} mails sent")

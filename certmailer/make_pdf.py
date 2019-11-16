@@ -108,4 +108,4 @@ def make_pdf(job):
                 total_certificates, total_mails
             )
         )
-        click.echo("Use >>certmail do send option to send them")
+        click.echo("Use >>certmailer do send option to send them")

@@ -39,7 +39,7 @@ def _default_attachments(attach_path, data, used):
     data["Attachments"] = []
     attached = []
     for file in attach_path.iterdir():
-        if not file.name in used:
+        if not file.stem in used:
             newattach = load_attachment(file)
             data["Attachments"].append(newattach)
             attached.append(file.name)
@@ -49,11 +49,10 @@ def _default_attachments(attach_path, data, used):
 def _add_inlines(job, data):
     """Check if every inline referenced is attached."""
     html = data["HTMLPart"]
-    pattern = "src=['\"]cid:(\w+)['\"]"
+    pattern = "certmailer=['\"]cid:(.+)['\"]"
     missed = []
     data["InlinedAttachments"] = []
     added = []
-
     for match in re.finditer(pattern, html):
         inline = _new_inline(job.attach.path, match.group(1))
         if inline:
@@ -61,6 +60,7 @@ def _add_inlines(job, data):
             data["InlinedAttachments"].extend(inline)
         else:
             missed.append(match.group(1))
+
     return missed, added
 
 
@@ -87,7 +87,7 @@ def make_template(job):
 
     missed, added = _add_inlines(job, data)
     if missed:
-        click.echo("Error: Missing inline attachments referenced", ', '.join(missed))
+        click.echo("Error: Missing inline attachments referenced " + ', '.join(missed))
     else:
         attached = _default_attachments(job.attach.path, data, added)
         template_path = job.relative_path("emailtemplate.yaml")

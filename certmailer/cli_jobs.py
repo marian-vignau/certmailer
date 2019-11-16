@@ -78,7 +78,7 @@ def use(name):
 def attach():
     """Manage attachments"""
     if not jobs.current_job:
-        click.echo("No current job selected. Use >> certmail use <jobname>")
+        click.echo("No current job selected. Use >> certmailer use <jobname>")
         sys.exit(1)
 
 
@@ -86,9 +86,8 @@ def attach():
 @click.argument("filenames", nargs=-1, type=click.Path(exists=True, resolve_path=True))
 def add(filenames):
     """Add a fixed attachment"""
-    print("::::", filenames)
     jobs.current_job.attach.add(filenames)
-    click.echo("Use like <img src=\\'cid:LOGO\\'> on >> certmail edit html")
+    click.echo("Use like <img certmailer=\\'cid:the_name_of_file_without_extension\\'> on >> certmailer edit html")
 
 
 @attach.command()
@@ -109,7 +108,7 @@ def list():
 def data():
     """Manage current job's data sources"""
     if not jobs.current_job:
-        click.echo("No current job selected. Use >> certmail use <jobname>")
+        click.echo("No current job selected. Use >> certmailer use <jobname>")
         sys.exit(1)
 
 
