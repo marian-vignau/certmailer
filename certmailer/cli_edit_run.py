@@ -40,7 +40,7 @@ def cli():
 def edit():
     """Edit current job components"""
     if not jobs.current_job:
-        click.echo("No current job selected. Use >> certmail use <jobname>")
+        click.echo("No current job selected. Use >> certmailer use <jobname>")
         sys.exit(1)
 
 
@@ -93,7 +93,7 @@ def openfile(filename, editor=None):
 def do():
     """Do any needed operations."""
     if not jobs.current_job:
-        click.echo("No current job selected. Use >> certmail use <jobname>")
+        click.echo("No current job selected. Use >> certmailer use <jobname>")
         sys.exit(1)
 
 

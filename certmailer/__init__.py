@@ -51,6 +51,6 @@ def main(app):
 # simple attributes to have this calculated at one place only
 base = None
 config_data = None
-app = appdirs.AppDirs("certmail")
+app = appdirs.AppDirs("certmailer")
 main(app)
 

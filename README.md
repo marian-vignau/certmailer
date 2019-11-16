@@ -7,11 +7,11 @@ Uses exported information from  **EventoL**,
 generate **certificates in PDF**, and **mail them** to the corresponding
 receiver.
 
-![Bilby Stampede](doc/cheatsheet.png)
+![Bilby Stampede](https://raw.githubusercontent.com/marian-vignau/certmailer/master/doc/cheatsheet.png)
 
 ## Install
 
-pip install certmail
+pip install certmailer
 
 ## Usage
 
@@ -25,7 +25,7 @@ Type the api key and the secret key give to you by MailJet service
 
 Create a new job
 
-> certmail new <name>
+> certmail job new <name>
 
 ### Add data
 
@@ -87,7 +87,7 @@ This will create the certificates pdf to send, and yaml files with
 all the info of every mail that will be sent.
 All the information will be stored on the «cache/<job>/outbox» directory.
 
-> certmail do certificates
+> certmail do send
 
 This will send every mail. If an email is successfully sent, all it's data'll
 move to «cache/<job>/sent» folder, and a json with information of resulting

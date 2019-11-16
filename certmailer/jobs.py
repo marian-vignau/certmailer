@@ -20,6 +20,7 @@ __author__ = "María Andrea Vignau"
 import shutil
 from pathlib import Path
 import zipfile
+from pkg_resources import resource_stream
 
 import click
 
@@ -98,7 +99,8 @@ class Job(object):
         else:
             self.config = job_data
             self.config["name"] = name
-            zip_ref = zipfile.ZipFile("template.zip", "r")
+            template_zip = resource_stream(__name__, 'template.zip')
+            zip_ref = zipfile.ZipFile(template_zip, "r")
             zip_ref.extractall(self.path)
             zip_ref.close()
         save_yml(self.config_path, self.config)

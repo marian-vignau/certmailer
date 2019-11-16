@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!python
 
 # Copyright 2019 María Andrea Vignau
 

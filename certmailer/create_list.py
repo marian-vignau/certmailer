@@ -49,7 +49,6 @@ class MyList(object):
         for category in self.job.categories.values():
             if category["regtype"] == "person":
                 self._process_file(category, self._append_list)
-
         category = self.job.categories["Speaker"]
         self._process_file(category, self._append_speakers)
 

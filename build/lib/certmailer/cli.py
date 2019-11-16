@@ -18,8 +18,16 @@
 
 __author__ = "María Andrea Vignau"
 
+import click
+from . import cli_config
+from . import cli_jobs
+from . import cli_edit_run
 
-import sys
-import test
+cli = click.CommandCollection(
+    sources=[cli_jobs.cli, cli_config.cli, cli_edit_run.cli]
+)
 
-from certmailer.cli import cli
+
+
+
+

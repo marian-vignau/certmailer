@@ -26,15 +26,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.0432143"
-     inkscape:cx="561.25984"
-     inkscape:cy="396.85039"
+     inkscape:cx="410.12178"
+     inkscape:cy="393.01609"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1920"
-     inkscape:window-height="1029"
+     inkscape:window-height="1053"
      inkscape:window-x="0"
-     inkscape:window-y="1080"
+     inkscape:window-y="0"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata5">
@@ -44,7 +44,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -56,15 +56,15 @@
     <flowRoot
        xml:space="preserve"
        id="flowRoot815"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:42.66666721px;line-height:125%;font-family:'Linux Biolinum';-inkscape-font-specification:'Linux Biolinum Bold';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:42.66666794px;line-height:125%;font-family:'Linux Biolinum';-inkscape-font-specification:'Linux Biolinum Bold';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,0,87)"><flowRegion
          id="flowRegion817"
-         style="font-size:42.66666721px;"><rect
+         style="font-size:42.66666794px"><rect
            id="rect819"
            width="917.14282"
            height="311.42856"
            x="148.57143"
            y="179.41508"
-           style="font-size:42.66666721px;" /></flowRegion><flowPara
-         id="flowPara821">Certificamos que {{name}} a participado en {{event}} como {{category}}.</flowPara></flowRoot>  </g>
+           style="font-size:42.66666794px" /></flowRegion><flowPara
+         id="flowPara821">Certificamos que {{name}} a participado en {{title}} como {{category}}.</flowPara></flowRoot>  </g>
 </svg>
