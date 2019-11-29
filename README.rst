@@ -1,0 +1,157 @@
+Certificates Mailer
+-------------------
+
+**Automate** sending event's certificates by email.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| Uses exported information from **EventoL**,
+| generate **certificates in PDF**, and **mail them** to the
+| corresponding receiver.
+
+|Bilby Stampede|
+
+Install
+-------
+
+    | virtualenv -p python3 *somewhere*
+    | cd *somewhere*
+    | source bin/activate
+    | pip install certmailer
+
+or using fades
+
+    fades -d certmailer -x certmail
+
+or add to your ~/.bashrc
+
+    certmail() { fades -d certmailer -x certmail $@; }
+
+Usage
+-----
+
+Create an account in MailJet, to send SMTP.
+
+Configure
+
+    certmail config
+
+Type the api key and the secret key give to you by MailJet service
+
+Create a new job
+
+    certmail job new
+
+Add data
+~~~~~~~~
+
+Go to the **EventoL** instance, login, and choose
+https://eventol.domain.com/admin
+
+| Select Activity, Attendees, Collaborators and Installers,
+| and export one by one to yaml format.
+
+Add them using
+
+    certmail data add \*.yaml
+
+Create the list of recipients
+
+    certmail do list
+
+this will parse the yaml files exported from **EventoL**, and create a
+csv.
+
+Check the list of receivers
+
+    certmail edit list
+
+It'll open the default editor on every case.
+
+If you don't want that somebody receives an email, clear «send mail?»
+cell.
+
+If you want to add some certificate, add **yes** to the corresponding
+cell.
+
+And if you don't want to send a certificate, clear the corresponding
+cell.
+
+Add attachments and edit format
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Add attachments using
+
+    certmail attach add
+
+Edit email's text part
+
+    certmail edit text
+
+Edit email's HTML part
+
+    certmail edit html
+
+Edit certificate in InkScape
+
+    certmail edit certificate
+
+Create the template
+
+    certmail do template
+
+Run everything
+--------------
+
+    certmail do certificates
+
+| This will create the certificates pdf to send, and yaml files with
+| all the info of every mail that will be sent.
+| All the information will be stored on the «cache//outbox» directory.
+
+    certmail do send
+
+| This will send every mail. If an email is successfully sent, all it's
+data'll
+| move to «cache//sent» folder, and a json with information of resulting
+| email will be stored.
+
+Requirements
+------------
+
+-  Python 3
+-  PyYaml
+-  certg
+-  mailjet-rest
+-  click
+
+Dev Instructions
+----------------
+
+::
+
+    - git clone git@github.com:marian-vignau/certmailer.git
+    - virtualenv env
+    - source env/bin/activate
+    - pip install -e .
+
+Contributing
+------------
+
+#. Fork it!
+#. Create your feature branch: ``git checkout -b my-new-feature``
+#. Commit your changes: ``git commit -am 'Add some feature'``
+#. Push to the branch: ``git push origin my-new-feature``
+#. Submit a pull request :D
+
+TODO
+----
+
+-  Extend documentation
+-  Digital signature
+
+Credits
+-------
+
+-  María Andrea Vignau
+
+.. |Bilby Stampede| image:: https://raw.githubusercontent.com/marian-vignau/certmailer/master/doc/cheatsheet.png

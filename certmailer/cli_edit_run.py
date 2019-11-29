@@ -69,7 +69,7 @@ def certificate():
 
 
 @edit.command()
-def receivers():
+def list():
     """Edits the email receivers."""
     openfile("receivers.csv", editor="libreoffice")
 

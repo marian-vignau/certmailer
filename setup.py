@@ -43,7 +43,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='certmailer',
-    version='1.0',
+    version='1.0.1',
     py_modules=['certmailer'],
     install_requires=[
         'PyYaml', "mailjet_rest", "certg", "appdirs", "click"
