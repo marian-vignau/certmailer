@@ -23,7 +23,7 @@ cwd = cwd.absolute().resolve()
 if cwd.exists():
     shutil.rmtree(str(cwd))
 cwd.mkdir()
-#logging.basicConfig(filename="./test_data/log.log", level=logging.DEBUG)
+# logging.basicConfig(filename="./test_data/log.log", level=logging.DEBUG)
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 SAMPLE_DATA = pathlib.Path("./data")
@@ -149,7 +149,6 @@ class MyTestCase(unittest.TestCase):
         for filename in add_to_data:
             self.assertIn(filename, result.output)
 
-
     def test_05template(self):
         result = runner(cli_jobs.cli, ["job", "use"])
         result = runner(cli_edit_run.cli, ["do", "template"])
@@ -162,9 +161,24 @@ class MyTestCase(unittest.TestCase):
 
     def test_07generate_certificate(self):
         result = runner(cli_jobs.cli, ["job", "use"])
-        result = runner(cli_edit_run.cli, ["do", "certificates"])
+        with mock.patch("certg.process") as mymock:
+            mymock.return_value = lambda *args: args
+            result = runner(cli_edit_run.cli, ["do", "certificates"])
+            files = [c[1] for c in mymock.mock_calls]
+            certificados = []
+            for file in files:
+                for cert in file[3]:
+                    filename = file[1] + "-" + cert[file[2]] + ".pdf"
+                    with open(filename, "w") as fh:
+                        fh.write("something")
+
+            # files = [str((c[1], c[3])) for c in files]
+            # logging.debug("\n\n\n certg CALLS \n" + "\n___________\n".join([str(c) for c in mymock.mock_calls]))
+            # logging.debug("\n\n certg CALLS \n" + "\n - ".join(certificados))
+
         self.assertEqual(result.exit_code, 0)
         result = runner(cli_jobs.cli, ["job", "use"])
+        # result = runner(cli_jobs.cli, ["job", "use"])
 
     def test_08sendmails(self):
         class Result:
@@ -185,7 +199,7 @@ class MyTestCase(unittest.TestCase):
             calls = [
                 yaml.safe_dump(json.loads(c[2]["data"])) for c in mymock.mock_calls
             ]
-            logging.debug("\n\n\n API CALLS \n" + "\n___________\n".join(calls))
+            # logging.debug("\n\n\n API CALLS \n" + "\n___________\n".join(calls))
 
             self.assertEqual(result.exit_code, 0)
         result = runner(cli_jobs.cli, ["job", "use"])

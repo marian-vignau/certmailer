@@ -40,8 +40,8 @@ def _load_mails(job):
             if "Attachments" not in message:
                 message["Attachments"] = []
             for f in email_data["attach"]:
-                file = job.outbox.joinpath(f.lower() + ".pdf")
-                message["Attachments"].append(load_attachment(file))
+                filename = job.outbox.joinpath(f + ".pdf")
+                message["Attachments"].append(load_attachment(filename))
             for attach in message["Attachments"]:
                 filename = attach["Filename"][:-4]
                 email_data["attach"].append(filename)
@@ -80,7 +80,7 @@ def send_mails(job):
         if result.status_code == 200:  # its OK
             _move_to_outbox(job, email_data["filename"], "yaml")
             for filename in email_data["attach"]:
-                _move_to_outbox(job, filename.lower(), "pdf")
+                _move_to_outbox(job, filename, "pdf")
             attemp = 0
             while True:
                 result_path = job.sent.joinpath(
@@ -92,5 +92,6 @@ def send_mails(job):
                     break
 
             save_yml(result_path, result.json())
+            n += 1
 
     click.echo(f"Total {n} mails sent")
