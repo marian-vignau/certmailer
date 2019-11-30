@@ -46,7 +46,7 @@ setuptools.setup(
     version='1.0.1',
     py_modules=['certmailer'],
     install_requires=[
-        'PyYaml', "mailjet_rest", "certg", "appdirs", "click"
+        'PyYaml', "requests", "mailjet_rest", "certg", "appdirs", "click"
     ],
     entry_points='''
         [console_scripts]
