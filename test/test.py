@@ -11,7 +11,10 @@ from unittest import mock
 from click.testing import CliRunner
 import yaml
 import json
-
+p1, p2 = pathlib.Path.cwd(), pathlib.Path(__file__).parent.absolute().resolve()
+if p1 != p2:
+    print("bad path:\n", p1, "\n", p2)
+    sys.exit(1)
 
 sys.path.append("..")
 import certmailer
