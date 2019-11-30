@@ -31,6 +31,7 @@ from .utils import load_yml, save_yml
 
 class Jobs(object):
     """Jobs manager and conteiner. Singleton."""
+
     def __init__(self):
         """Load the data structure"""
         self.config = load_yml(base.config_path)
@@ -69,8 +70,7 @@ class Jobs(object):
     def remove(self, name):
         """Removes a job folder."""
         shutil.rmtree(base.data_basedir.joinpath(name))
-        if self._current_job and \
-                name == self.current_job.name:
+        if self._current_job and name == self.current_job.name:
             if self.list():
                 self.current_job = self.list()[0]
             else:
@@ -79,7 +79,7 @@ class Jobs(object):
     def __str__(self):
         """A human-readable representation of the job string"""
         if self.list():
-            s = ', '.join(self.list())
+            s = " -" + "\n -".join(self.list())
             if self.current_job:
                 s += f"\nCurrent job: {self.current_job}"
             return s
@@ -89,6 +89,7 @@ class Jobs(object):
 
 class Job(object):
     """Creates and access one job."""
+
     def __init__(self, name, job_data=None):
         """Configure a job"""
         self.name = name
@@ -99,7 +100,7 @@ class Job(object):
         else:
             self.config = job_data
             self.config["name"] = name
-            template_zip = resource_stream(__name__, 'template.zip')
+            template_zip = resource_stream(__name__, "template.zip")
             zip_ref = zipfile.ZipFile(template_zip, "r")
             zip_ref.extractall(self.path)
             zip_ref.close()
@@ -120,7 +121,7 @@ class Job(object):
         self.outbox = ensure_dir_exists(self.cache.joinpath("outbox"))
         self.sent = ensure_dir_exists(self.cache.joinpath("sent"))
 
-        #self.p = Paths(self.path)
+        # self.p = Paths(self.path)
 
     def __str__(self):
         """An human-readable expresion of key information about the job"""
@@ -128,16 +129,16 @@ class Job(object):
             return self.name
         s = "{name} ->"
         s += " '{title}'"
-        s += " from {sender_name} <{sender_email}>"
-        s += " / inscrip {from_date:%d/%m/%Y}"
-        s += " to {to_date:%d/%m/%Y}"
-        s += '\n Subj: "{subject}"'
+        s += "\n  from: {sender_name} <{sender_email}>"
+        s += "\n  inscrip: {from_date:%Y/%m/%d} - "
+        s += "{to_date:%Y/%m/%d}"
+        s += '\n  subj: "{subject}"'
         return s.format(**self.config)
 
     def __repr__(self):
         """Shows the data inside the job object"""
         s = map(str, [self, self.attach, self.data])
-        return '\n'.join(s)
+        return "\n".join(s)
 
 
 class JobFolder(object):
@@ -169,7 +170,7 @@ class JobFolder(object):
     def __str__(self):
         s = self.name + ": \n  - "
         if self.list():
-            return s + '\n  - '.join(self.list())
+            return s + "\n  - ".join(self.list())
         else:
             return s + "none"
 

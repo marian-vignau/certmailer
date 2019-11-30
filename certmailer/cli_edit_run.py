@@ -29,11 +29,9 @@ import yaml
 from .jobs import jobs
 
 
-
 @click.group()
 def cli():
     pass
-
 
 
 @cli.group()
@@ -74,11 +72,9 @@ def list():
     openfile("receivers.csv", editor="libreoffice")
 
 
-
 def openfile(filename, editor=None):
     """Opens file with default editor."""
-    filepath = jobs.current_job.relative_path(
-        filename)
+    filepath = jobs.current_job.relative_path(filename)
     if filepath.exists():
         if editor:
             click.edit(filename=str(filepath), editor=editor)
@@ -101,6 +97,7 @@ def do():
 def list():
     """Creates recipients list."""
     from . import make_csv
+
     make_csv.make_csv(jobs.current_job)
 
 
@@ -108,6 +105,7 @@ def list():
 def template():
     """Parses and creates and email template."""
     from .make_template import make_template
+
     make_template(jobs.current_job)
 
 
@@ -115,6 +113,7 @@ def template():
 def certificates():
     """Do all certificates using data."""
     from .make_pdf import make_pdf
+
     make_pdf(jobs.current_job)
 
 
@@ -122,6 +121,5 @@ def certificates():
 def send():
     """Send all the mails."""
     from .send_mails import send_mails
+
     send_mails(jobs.current_job)
-
-

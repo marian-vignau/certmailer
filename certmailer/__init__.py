@@ -39,18 +39,28 @@ class Dir(object):
 
         self.config_path = self.config_basedir.joinpath("config.cfg")
 
+    def __str__(self):
+        l = [
+            self.data_basedir,
+            self.cache_basedir,
+            self.config_basedir,
+            self.config_path,
+        ]
+        return "\n".join([str(x) for x in l])
 
-def main(app):
+
+def main():
     global base
     global config_data
+    global app
     base = Dir(app)
     if base.config_path.exists():
         with open(base.config_path, encoding="utf8") as fh:
             config_data = yaml.safe_load(fh.read())
 
+
 # simple attributes to have this calculated at one place only
 base = None
 config_data = None
 app = appdirs.AppDirs("certmailer")
-main(app)
-
+# main(app)

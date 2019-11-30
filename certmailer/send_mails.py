@@ -66,8 +66,8 @@ def _move_to_outbox(job, filename, suffix):
         shutil.move(src=str(src), dst=str(dst))
 
 
-def send_mails(job, max_mails=0):
-    """Send mails. If it"""
+def send_mails(job):
+    """Send mails."""
     n = 0
     n_mails = len([x for x in job.outbox.glob("*.yaml")])
     click.echo(f"Mails to send {n_mails}")
@@ -92,9 +92,5 @@ def send_mails(job, max_mails=0):
                     break
 
             save_yml(result_path, result.json())
-
-        n += 1
-        if max_mails > 0 and n >= max_mails:
-            break
 
     click.echo(f"Total {n} mails sent")

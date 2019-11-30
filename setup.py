@@ -38,20 +38,18 @@ Used to create a command-line tool with setup tools
 
 import setuptools
 
-with open("README.md", "r") as fh:
+with open("README.rst", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name='certmailer',
-    version='1.0.1',
-    py_modules=['certmailer'],
-    install_requires=[
-        'PyYaml', "requests", "mailjet_rest", "certg", "appdirs", "click"
-    ],
-    entry_points='''
+    name="certmailer",
+    version="1.0.1",
+    py_modules=["certmailer"],
+    install_requires=["PyYaml", "mailjet_rest", "certg", "appdirs", "click"],
+    entry_points="""
         [console_scripts]
         certmail=certmail:cli
-    ''',
+    """,
     author="María Andrea Vignau",
     author_email="mavignau@gmail.com",
     description="To download, create and mail certificate on events",
@@ -70,10 +68,10 @@ setuptools.setup(
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Natural Language :: English",
         "Programming Language :: Python :: 3",
-        "Topic :: Communications :: Email"
+        "Topic :: Communications :: Email",
     ],
-    python_requires='>=3.6',
-    setup_requires=['wheel'],
-    package_data={'certmailer': ['template.zip']},
-    include_package_data=True
+    python_requires=">=3.6",
+    setup_requires=["wheel"],
+    package_data={"certmailer": ["template.zip"]},
+    include_package_data=True,
 )

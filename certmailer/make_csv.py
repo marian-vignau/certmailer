@@ -51,6 +51,7 @@ def process_list(sendmail, job):
         yield line
     click.echo(do.stats)
 
+
 def make_csv(job):
     """Creates the text file with the selected recipients
     and certificates to generate"""

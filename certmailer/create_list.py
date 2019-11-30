@@ -35,7 +35,7 @@ class Stats(dict):
             self[name] += 1
 
     def __str__(self):
-        return '\n'.join([f"{k}: {v}" for k, v in self.items()])
+        return "\n".join([f"{k}: {v}" for k, v in self.items()])
 
 
 class MyList(object):
@@ -57,10 +57,10 @@ class MyList(object):
         for file in self.job.data.path.iterdir():
             if file.suffix == ".yaml":
                 for key, category in self.job.categories.items():
-                    if isinstance(category["fileprefix"], str) and \
-                            file.name.startswith(category["fileprefix"]):
+                    if isinstance(category["fileprefix"], str) and file.name.startswith(
+                        category["fileprefix"]
+                    ):
                         category["file"] = file
-
 
     def _process_file(self, category, function):
         """Process an exported yaml file """
@@ -83,7 +83,7 @@ class MyList(object):
         """Creates a email's list.
         Each person is identified by it's email"""
         if not user["email"] in self.list:
-            self.stats.count('total email receivers found ')
+            self.stats.count("total email receivers found ")
             user["certificates"] = []
             user["ascii_name"] = self.unaccented(
                 user.get("first_name", ""), user.get("last_name", "")
@@ -100,7 +100,9 @@ class MyList(object):
             if date_field in person:
                 try:
                     # founded the date that this person relates to the event
-                    cert_date = datetime.strptime(person[date_field], "%Y-%m-%d %H:%M:%S")
+                    cert_date = datetime.strptime(
+                        person[date_field], "%Y-%m-%d %H:%M:%S"
+                    )
                     break
                 except Exception as e:
                     print(person[date_field])
@@ -114,15 +116,15 @@ class MyList(object):
             if self.job.config["from_date"] <= cert_date <= self.job.config["to_date"]:
                 cert_event = self.job.name
             else:
-                self.stats.count('outdated incriptions type: ' + category)
-                #print(f"{email} {self.job.name} {category} {cert_date:%Y-%m-%d}")
+                self.stats.count("outdated incriptions type: " + category)
+                # print(f"{email} {self.job.name} {category} {cert_date:%Y-%m-%d}")
 
         if not cert_event is None:
             # add a certificate related to the event to this person certificates
             certificate = (cert_event, category)
             certificates_lists = self.list[email]["certificates"]
             if certificate and not certificate in certificates_lists:
-                self.stats.count('certificated added type ' + category)
+                self.stats.count("certificated added type " + category)
                 certificates_lists.append(certificate)
 
     def _supress_event_user_prefix(self, item):
@@ -131,7 +133,7 @@ class MyList(object):
         prefix = "event_user__user__"
         for key, value in item.items():
             if key.startswith(prefix):
-                user[key[len(prefix):]] = value
+                user[key[len(prefix) :]] = value
             else:
                 user[key] = value
         return user

@@ -22,4 +22,8 @@ __author__ = "María Andrea Vignau"
 import sys
 import test
 
+import certmailer
+
+certmailer.main()
+
 from certmailer.cli import cli

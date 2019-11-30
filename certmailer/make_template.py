@@ -73,21 +73,17 @@ def load(job, filename):
 def make_template(job):
     """Creates the email template that includes inline attachments"""
     config = load_yml(job.relative_path("config.yml"))
-    data = {"From": {"Email": config["sender_email"],
-                     "Name": config["sender_name"]},
-
-            "To": [{"Email": "{email}",
-                    "Name": "{name}"}],
-
-            "Subject": config["subject"],
-
-            "TextPart": load(job, "textpart.txt"),
-            "HTMLPart": load(job, "htmlpart.html"),
-            }
+    data = {
+        "From": {"Email": config["sender_email"], "Name": config["sender_name"]},
+        "To": [{"Email": "{email}", "Name": "{name}"}],
+        "Subject": config["subject"],
+        "TextPart": load(job, "textpart.txt"),
+        "HTMLPart": load(job, "htmlpart.html"),
+    }
 
     missed, added = _add_inlines(job, data)
     if missed:
-        click.echo("Error: Missing inline attachments referenced " + ', '.join(missed))
+        click.echo("Error: Missing inline attachments referenced " + ", ".join(missed))
     else:
         attached = _default_attachments(job.attach.path, data, added)
         template_path = job.relative_path("emailtemplate.yaml")
@@ -95,4 +91,3 @@ def make_template(job):
         click.echo(f"Created {template_path.name}")
         click.echo(f"added {len(added)} ({', '.join(added)}) inlined images")
         click.echo(f"added {len(attached)} ({', '.join(attached)}) fixed attachments")
-

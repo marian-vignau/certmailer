@@ -36,7 +36,9 @@ def _add_to_jobs(job, receiver, certificates):
     certg.process(
         str(job.relative_path("certificate.svg")),
         str(job.outbox) + "/",
-        "filename", certificates, images=[]
+        "filename",
+        certificates,
+        images=[],
     )
     with job.outbox.joinpath("{}.yaml".format(receiver["filename"])).open(
         "w", encoding="utf8"
@@ -66,11 +68,9 @@ def _parse_header(job, header1, header2):
     for i, cat in enumerate(header1[first_cert_col:]):
         idx = first_cert_col + i
         evt = header2[idx]
-        cert_types.append({
-            "title": job.config["title"],
-            "category": cat,
-            "suffix": f"-{evt}-{cat}"
-        })
+        cert_types.append(
+            {"title": job.config["title"], "category": cat, "suffix": f"-{evt}-{cat}"}
+        )
     return cert_types, send_column, first_cert_col
 
 

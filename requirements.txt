@@ -3,5 +3,4 @@ certg
 appdirs
 mailjet_rest
 click
-requests
 sphinx

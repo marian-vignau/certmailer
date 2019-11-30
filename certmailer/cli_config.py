@@ -21,6 +21,7 @@ import click
 from .utils import load_yml, save_yml
 from . import base
 
+
 class KeyString(click.ParamType):
     name = "integer"
 
@@ -36,9 +37,7 @@ class KeyString(click.ParamType):
         except ValueError:
             pass
         self.fail(
-            "You must enter the provided key, a 32 digits hex number.",
-            param,
-            ctx,
+            "You must enter the provided key, a 32 digits hex number.", param, ctx
         )
 
 
@@ -48,6 +47,7 @@ KEYSTRING = KeyString()
 @click.group()
 def cli():
     pass
+
 
 @cli.command()
 @click.option("--api_key", prompt="Enter api key", type=KEYSTRING)

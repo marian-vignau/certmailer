@@ -23,6 +23,7 @@ import click
 from .jobs import jobs
 import sys
 
+
 @click.group()
 def cli():
     pass
@@ -36,7 +37,7 @@ def job():
 
 @job.command()
 def list():
-    """List existing jobs"""
+    """List existing jobs."""
     click.echo(str(jobs))
 
 
@@ -46,8 +47,15 @@ def list():
 @click.option("-e", "--sender_email", prompt="E-Mail sender address", type=str)
 @click.option("-n", "--sender_name", prompt="E-Mail sender name", type=str)
 @click.option("-s", "--subject", prompt="E-Mail subject", type=str)
-@click.option("-f", "--from_date", prompt="Enter initial date of registration", type=click.DateTime())
-@click.option("-d", "--to_date", prompt="Enter final date of registration", type=click.DateTime())
+@click.option(
+    "-f",
+    "--from_date",
+    prompt="Enter initial date of registration",
+    type=click.DateTime(),
+)
+@click.option(
+    "-d", "--to_date", prompt="Enter final date of registration", type=click.DateTime()
+)
 def new(name, **job_data):
     """Creates a new job"""
     if not name in jobs.list():
@@ -76,7 +84,7 @@ def use(name):
 
 @cli.group()
 def attach():
-    """Manage attachments"""
+    """Manage attachments."""
     if not jobs.current_job:
         click.echo("No current job selected. Use >> certmailer use <jobname>")
         sys.exit(1)
@@ -87,7 +95,9 @@ def attach():
 def add(filenames):
     """Add a fixed attachment"""
     jobs.current_job.attach.add(filenames)
-    click.echo("Use like <img certmailer=\\'cid:the_name_of_file_without_extension\\'> on >> certmailer edit html")
+    click.echo(
+        "Use like <img certmailer=\\'cid:the_name_of_file_without_extension\\'> on >> certmailer edit html"
+    )
 
 
 @attach.command()
@@ -135,4 +145,3 @@ def remove(filename):
         click.echo("The file wasn't find in the list of attached. Any mistake?")
         click.echo(jobs.current_job.data)
         sys.exit(1)
-
