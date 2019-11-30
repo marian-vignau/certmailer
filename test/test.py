@@ -133,6 +133,7 @@ class MyTestCase(unittest.TestCase):
             self.assertIn(filename, result.output)
 
     def test_04data(self):
+        result = runner(cli_jobs.cli, ["job", "use"])
         add_to_data = [
             "Activity-2019-05-28.yaml",
             "Attendee-2019-05-28.yaml",
@@ -148,17 +149,22 @@ class MyTestCase(unittest.TestCase):
         for filename in add_to_data:
             self.assertIn(filename, result.output)
 
+
     def test_05template(self):
+        result = runner(cli_jobs.cli, ["job", "use"])
         result = runner(cli_edit_run.cli, ["do", "template"])
         self.assertEqual(result.exit_code, 0)
 
     def test_06makelist(self):
         result = runner(cli_edit_run.cli, ["do", "list"])
         self.assertEqual(result.exit_code, 0)
+        result = runner(cli_jobs.cli, ["job", "use"])
 
     def test_07generate_certificate(self):
+        result = runner(cli_jobs.cli, ["job", "use"])
         result = runner(cli_edit_run.cli, ["do", "certificates"])
         self.assertEqual(result.exit_code, 0)
+        result = runner(cli_jobs.cli, ["job", "use"])
 
     def test_08sendmails(self):
         class Result:
@@ -182,6 +188,7 @@ class MyTestCase(unittest.TestCase):
             logging.debug("\n\n\n API CALLS \n" + "\n___________\n".join(calls))
 
             self.assertEqual(result.exit_code, 0)
+        result = runner(cli_jobs.cli, ["job", "use"])
 
 
 if __name__ == "__main__":

@@ -137,8 +137,46 @@ class Job(object):
 
     def __repr__(self):
         """Shows the data inside the job object"""
-        s = map(str, [self, self.attach, self.data])
+        s = list(map(str, [self, self.attach, self.data]))
+        s.append("Receivers:")
+        s.append('\n'.join([f"{h:>20}:{c}" for (h, c) in self.receivers()]))
+        s.append("Cache:")
+        s.append('\n'.join([f"{h:>20}:{c}" for (h, c) in self.show_cache()]))
         return "\n".join(s)
+
+    def receivers(self):
+        filename = self.relative_path("receivers.csv")
+        if filename.exists():
+            with open(filename, "r", encoding="utf8") as fh:
+                header = [x.strip() for x in fh.readline().split(",")]
+                h2 = fh.readline()
+                numbers = [0] * len(header)
+                for line in fh.readlines():
+                    cols = line.split()
+                    fn = lambda x: 1 if x.strip() != "" else 0
+                    cant = map(fn, cols)
+                    numbers = [sum(x) for x in zip(numbers, cant)]
+            return zip(header, numbers)
+        else:
+            return [("", "")]
+
+    def show_cache(self):
+        def sub_dir(name, path):
+            for filename in path.iterdir():
+                key = f"{name}-{filename.suffix}"
+                if key in data:
+                    data[key] += 1
+                else:
+                    data[key] = 1
+
+        data = {}
+        sub_dir("outbox", self.outbox)
+        sub_dir("sent", self.sent)
+        header = list(data.keys())
+        header.sort()
+        return [(h, data[h]) for h in header]
+
+
 
 
 class JobFolder(object):
