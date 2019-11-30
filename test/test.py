@@ -23,7 +23,8 @@ cwd = cwd.absolute().resolve()
 if cwd.exists():
     shutil.rmtree(str(cwd))
 cwd.mkdir()
-logging.basicConfig(filename="./test_data/log.log", level=logging.DEBUG)
+#logging.basicConfig(filename="./test_data/log.log", level=logging.DEBUG)
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 SAMPLE_DATA = pathlib.Path("./data")
 SAMPLE_DATA = SAMPLE_DATA.absolute().resolve()
