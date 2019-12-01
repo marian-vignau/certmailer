@@ -72,7 +72,7 @@ def _parse_header(job, header1, header2):
             {
                 "title": job.config["title"],
                 "category": cat.lower(),
-                "suffix": f"-{evt}-{cat.lower()}",
+                "suffix": f"-{evt}-{cat}".lower(),
             }
         )
     return cert_types, send_column, first_cert_col

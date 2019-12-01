@@ -96,7 +96,7 @@ def add(filenames):
     """Add a fixed attachment"""
     jobs.current_job.attach.add(filenames)
     click.echo(
-        "Use like <img certmailer=\\'cid:the_name_of_file_without_extension\\'> on >> certmailer edit html"
+        "Use like <img src='cid:the_name_of_file_without_extension'> on >> certmailer edit html"
     )
 
 

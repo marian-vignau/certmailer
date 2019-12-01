@@ -161,24 +161,19 @@ class MyTestCase(unittest.TestCase):
 
     def test_07generate_certificate(self):
         result = runner(cli_jobs.cli, ["job", "use"])
+        # mock certg, I can't create pdf without inkscape
         with mock.patch("certg.process") as mymock:
             mymock.return_value = lambda *args: args
             result = runner(cli_edit_run.cli, ["do", "certificates"])
+            # creates files to add as attachments
             files = [c[1] for c in mymock.mock_calls]
-            certificados = []
             for file in files:
                 for cert in file[3]:
                     filename = file[1] + "-" + cert[file[2]] + ".pdf"
                     with open(filename, "w") as fh:
                         fh.write("something")
 
-            # files = [str((c[1], c[3])) for c in files]
-            # logging.debug("\n\n\n certg CALLS \n" + "\n___________\n".join([str(c) for c in mymock.mock_calls]))
-            # logging.debug("\n\n certg CALLS \n" + "\n - ".join(certificados))
-
         self.assertEqual(result.exit_code, 0)
-        result = runner(cli_jobs.cli, ["job", "use"])
-        # result = runner(cli_jobs.cli, ["job", "use"])
 
     def test_08sendmails(self):
         class Result:

@@ -24,3 +24,4 @@ from . import cli_jobs
 from . import cli_edit_run
 
 cli = click.CommandCollection(sources=[cli_jobs.cli, cli_config.cli, cli_edit_run.cli])
+cli.help = "Automate sending event's certificates by email."

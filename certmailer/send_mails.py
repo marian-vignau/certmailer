@@ -17,6 +17,8 @@
 # For further info, check
 
 import shutil
+import socket
+import sys
 
 from mailjet_rest import Client
 import yaml
@@ -25,13 +27,17 @@ import click
 from .jobs import jobs
 from .utils import save_yml, load_attachment
 
+REMOTE_SERVER = "www.google.com"
+
 
 def _load_mails(job):
     """Loads and send every email."""
     template_path = job.relative_path("emailtemplate.yaml")
+
     with template_path.open() as fh:
         email_template = fh.read()
     for file in job.outbox.glob("*.yaml"):
+        error = []
         with file.open("r", encoding="utf8") as fh:
             email_data = job.config.copy()
             email_data.update(yaml.safe_load(fh))
@@ -41,12 +47,15 @@ def _load_mails(job):
                 message["Attachments"] = []
             for f in email_data["attach"]:
                 filename = job.outbox.joinpath(f + ".pdf")
-                message["Attachments"].append(load_attachment(filename))
+                if filename.exists():
+                    message["Attachments"].append(load_attachment(filename))
+                else:
+                    error.append(str(filename))
             for attach in message["Attachments"]:
                 filename = attach["Filename"][:-4]
                 email_data["attach"].append(filename)
             data = {"Messages": [message]}
-            yield email_data, data
+            yield email_data, data, error
 
 
 def _sendmail(data):
@@ -66,15 +75,33 @@ def _move_to_outbox(job, filename, suffix):
         shutil.move(src=str(src), dst=str(dst))
 
 
+def is_connected(hostname):
+    try:
+        # see if we can resolve the host name -- tells us if there is
+        # a DNS listening
+        host = socket.gethostbyname(hostname)
+        # connect to the host -- tells us if the host is actually
+        # reachable
+        s = socket.create_connection((host, 80), 2)
+        s.close()
+        return True
+    except:
+        pass
+    return False
+
 def send_mails(job):
     """Send mails."""
+    if not is_connected(REMOTE_SERVER):
+        click.echo("You need to be connected to Internet")
+        sys.exit(1)
     n = 0
     n_mails = len([x for x in job.outbox.glob("*.yaml")])
     click.echo(f"Mails to send {n_mails}")
 
     prog = click.progressbar(length=n_mails)
-
-    for email_data, data in _load_mails(job):
+    missing_files = []
+    for email_data, data, error in _load_mails(job):
+        missing_files += error
         prog.update(1)
         result = _sendmail(data)
         if result.status_code == 200:  # its OK
@@ -95,3 +122,6 @@ def send_mails(job):
             n += 1
 
     click.echo(f"Total {n} mails sent")
+    if missing_files:
+        s = "\n -".join(missing_files)
+        click.echo("Missing files:\n -" + s)

@@ -49,7 +49,7 @@ def _default_attachments(attach_path, data, used):
 def _add_inlines(job, data):
     """Check if every inline referenced is attached."""
     html = data["HTMLPart"]
-    pattern = "certmailer=['\"]cid:(.+)['\"]"
+    pattern = "src=['\"]cid:(.+)['\"]"
     missed = []
     data["InlinedAttachments"] = []
     added = []
