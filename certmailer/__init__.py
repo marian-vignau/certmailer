@@ -49,6 +49,13 @@ class Dir(object):
         return "\n".join([str(x) for x in l])
 
 
+class FakeApp(object):
+    def __init__(self, cwd):
+        self.user_config_dir = str(cwd)
+        self.user_cache_dir = str(cwd)
+        self.user_data_dir = str(cwd)
+
+
 def main():
     global base
     global config_data
@@ -60,7 +67,7 @@ def main():
 
 
 # simple attributes to have this calculated at one place only
-base = None
 config_data = None
 app = appdirs.AppDirs("certmailer")
+base = Dir(FakeApp("."))
 # main(app)

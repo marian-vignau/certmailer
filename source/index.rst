@@ -6,9 +6,9 @@ Welcome to CertMail's documentation!
    :maxdepth: 3
    :caption: Contents:
 
-    modules
+    modindex.rst
 
-.. include:: ../README.rst
+.. include:: ../README.md
 
 
 

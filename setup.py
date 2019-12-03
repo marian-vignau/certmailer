@@ -34,16 +34,24 @@ Used to create a command-line tool with setup tools
 >>> python setup.py develop --no-deps
 -- Use on console
 >>> certmailer --help
+>>> pip install --user --upgrade setuptools wheel
+>>> python3 setup.py sdist bdist_wheel
+>>> twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+>>> pip install --extra-index-url https://pypi.org/simple
+                                --index-url https://test.pypi.org/simple/
+                                certmailer
+>>> twine upload dist/*
+
 """
 
 import setuptools
 
-with open("README.rst", "r") as fh:
+with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="certmailer",
-    version="1.0.1",
+    version="1.1",
     py_modules=["certmailer"],
     install_requires=["PyYaml", "mailjet_rest", "certg", "appdirs", "click"],
     entry_points="""

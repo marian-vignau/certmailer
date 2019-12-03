@@ -30,19 +30,11 @@ SAMPLE_DATA = pathlib.Path("./data")
 SAMPLE_DATA = SAMPLE_DATA.absolute().resolve()
 
 
-class FakeApp(object):
-    user_config_dir = str(cwd)
-    user_cache_dir = str(cwd)
-    user_data_dir = str(cwd)
-
-    def __init__(self):
-        pass
-
-
 sys.path.append("..")
 import certmailer
 
-certmailer.app = FakeApp()
+
+certmailer.app = certmailer.FakeApp(cwd)
 certmailer.main()
 
 

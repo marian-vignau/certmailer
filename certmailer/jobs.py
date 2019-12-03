@@ -30,7 +30,7 @@ from .utils import load_yml, save_yml
 
 
 class Jobs(object):
-    """Jobs manager and conteiner. Singleton."""
+    """Jobs manager and container. Singleton."""
 
     def __init__(self):
         """Load the data structure"""

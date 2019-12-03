@@ -15,7 +15,10 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
-   sodipodi:docname="cheatsheet.svg">
+   sodipodi:docname="cheatsheet.svg"
+   inkscape:export-filename="/home/marian/PycharmProjects/certmailer/doc/cheatsheet.png"
+   inkscape:export-xdpi="89.985809"
+   inkscape:export-ydpi="89.985809">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -33,9 +36,9 @@
      showgrid="false"
      inkscape:snap-nodes="false"
      inkscape:window-width="1920"
-     inkscape:window-height="1053"
+     inkscape:window-height="1029"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="1080"
      inkscape:window-maximized="1"
      showguides="true"
      inkscape:measure-start="0,0"
@@ -105,6 +108,17 @@
          x="76.173088"
          y="-813.00781"
          style="fill:#ffffff;stroke-width:0.26458332">certmail</tspan></text>
+    <text
+       id="text1480"
+       y="78.992188"
+       x="347.77661"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:56.29508209px;line-height:1.25;font-family:Consolas;-inkscape-font-specification:'Consolas Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"><tspan
+         style="fill:#cccccc;stroke-width:0.26458332;-inkscape-font-specification:'Consolas, Bold Italic';font-family:Consolas;font-weight:bold;font-style:italic;font-stretch:normal;font-variant:normal;font-size:56.29627842px;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal"
+         y="78.992188"
+         x="347.77661"
+         id="tspan1478"
+         sodipodi:role="line">er</tspan></text>
   </g>
   <g
      inkscape:label="Capa 1"
@@ -950,7 +964,7 @@
            y="75.112839"
            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:64px;font-family:Consolas;-inkscape-font-specification:'Consolas Bold';fill:#ffffff;stroke-width:1.32917213" /></flowRegion><flowPara
          id="flowPara6335"
-         style="stroke-width:1.32917213">&gt; edit recipients</flowPara></flowRoot>    <flowRoot
+         style="stroke-width:1.32917213">&gt; edit list</flowPara></flowRoot>    <flowRoot
        transform="matrix(0.19905875,0,0,0.19905875,410.46542,-642.37669)"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:64px;line-height:1.25;font-family:Consolas;-inkscape-font-specification:'Consolas Bold';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.32917213"
        id="flowRoot6400"
