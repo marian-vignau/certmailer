@@ -19,14 +19,15 @@
 __author__ = "María Andrea Vignau"
 
 import sys
-import subprocess
-import os
-import platform
 
 import click
-import yaml
 
 from .jobs import jobs
+from .receivers import Receivers
+from .eventoL_import import MyList
+from .make_template import Template
+from .gen_mail import GenMail
+from .utils import save_yml, is_connected
 
 
 @click.group()
@@ -85,41 +86,66 @@ def openfile(filename, editor=None):
         sys.exit(1)
 
 
-@cli.group()
-def do():
-    """Do any needed operations."""
-    if not jobs.current_job:
-        click.echo("No current job selected. Use >> certmailer use <jobname>")
-        sys.exit(1)
+def need_current_job(func):
+    def inner(*args, **kargs):
+        if not jobs.current_job:
+            click.echo("No current job selected. Use >> certmailer use <jobname>")
+            sys.exit(1)
+        print("ok")
+        func(*args, **kargs)
+    return inner
 
 
-@do.command()
-def list():
-    """Creates recipients list."""
-    from . import make_csv
+@need_current_job
+@cli.command("import", help="Imports data")
+def impo():
+    """Imports data exported from eventoL
+    and creates de data sheet
+    of certificates to generate"""
 
-    make_csv.make_csv(jobs.current_job)
-
-
-@do.command()
-def template():
-    """Parses and creates and email template."""
-    from .make_template import make_template
-
-    make_template(jobs.current_job)
-
-
-@do.command()
-def certificates():
-    """Do all certificates using data."""
-    from .make_pdf import make_pdf
-
-    make_pdf(jobs.current_job)
+    do = MyList(jobs.current_job)
+    receivers = Receivers(jobs.current_job)
+    if receivers.exists():
+        click.secho(f"Receivers list exists", fg="red")
+    receivers.write(do)
+    click.echo(f"Created {receivers.filename}.")
+    click.echo("Open to choose mails to send and certificates to generate")
 
 
-@do.command()
+@need_current_job
+@cli.command()
 def send():
     """Send all the mails."""
-    from .send_mails import send_mails
+    if not is_connected():
+        click.echo("You need to be connected to Internet")
+        sys.exit(1)
+    template = Template(jobs.current_job)
+    if template.missed:
+        click.echo("Error: Missing inline attachments referenced " + ", ".join(template.missed))
+        sys.exit(1)
+    receivers = Receivers(jobs.current_job)
+    to_send = receivers.mails_to_send
+    if not to_send:
+        click.echo("Error: No mails to send")
+        sys.exit(1)
+    else:
+        sender = GenMail(jobs.current_job, template)
+        prog = click.progressbar(length=receivers.mails_to_send)
+        for receiver in receivers.read():
+            if receiver:
+                result = sender.sendmail(receiver)
+                prog.update(1)
+                if result.status_code == 200:
+                    sender.move_to_sent(receiver)
+        click.echo(f"\nTotal {sender.total_mails} mails sent")
+        click.echo(f"Total {sender.total_certificates} certificates sent")
 
-    send_mails(jobs.current_job)
+
+@need_current_job
+@cli.command()
+def show():
+    """List all the mails."""
+    receivers = Receivers(jobs.current_job)
+    if receivers.exists():
+        for receiver in receivers.read():
+            click.echo(receiver)

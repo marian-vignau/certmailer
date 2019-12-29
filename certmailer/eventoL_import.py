@@ -25,17 +25,10 @@ Create a csv list of candidates to do a certificate
 import yaml
 from datetime import datetime
 import unicodedata
+from .utils import Stats
 
 
-class Stats(dict):
-    def count(self, name):
-        if not name in self.keys():
-            self[name] = 1
-        else:
-            self[name] += 1
 
-    def __str__(self):
-        return "\n".join([f"{k}: {v}" for k, v in self.items()])
 
 
 class MyList(object):

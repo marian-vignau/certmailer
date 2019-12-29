@@ -27,6 +27,8 @@ import click
 from . import base
 from . import ensure_dir_exists
 from .utils import load_yml, save_yml
+from .receivers import Receivers
+from .jobfolder import JobFolder
 
 
 class Jobs(object):
@@ -70,6 +72,7 @@ class Jobs(object):
     def remove(self, name):
         """Removes a job folder."""
         shutil.rmtree(base.data_basedir.joinpath(name))
+        shutil.rmtree(base.cache_basedir.joinpath(name))
         if self._current_job and name == self.current_job.name:
             if self.list():
                 self.current_job = self.list()[0]
@@ -90,7 +93,7 @@ class Jobs(object):
 class Job(object):
     """Creates and access one job."""
 
-    def __init__(self, name, job_data=None):
+    def __init__(self, name: str, job_data: dict={}):
         """Configure a job"""
         self.name = name
         self.path = ensure_dir_exists(base.data_basedir.joinpath(name))
@@ -117,7 +120,11 @@ class Job(object):
         self.attach = JobFolder(self, "attach")
         self.data = JobFolder(self, "data")
 
-        self.cache = ensure_dir_exists(base.cache_basedir.joinpath(name))
+
+        #self.cache = ensure_dir_exists(base.cache_basedir.joinpath(name))
+        path = Path("/dev/shm")
+        self.cache = ensure_dir_exists(path.joinpath(name))
+
         self.outbox = ensure_dir_exists(self.cache.joinpath("outbox"))
         self.sent = ensure_dir_exists(self.cache.joinpath("sent"))
 
@@ -147,34 +154,18 @@ class Job(object):
                 return []
 
         s = list(map(str, [self, self.attach, self.data]))
-        s.extend(add_section("Receivers", self.receivers()))
+        receiver = Receivers(self)
+        s.extend(add_section("Receivers", receiver.describe()))
         s.extend(add_section("Cache", self.show_cache()))
+        s.extend(["path", str(self.cache)])
         return "\n".join(s)
 
-    def receivers(self):
-        filename = self.relative_path("receivers.csv")
-        if filename.exists():
-            with filename.open("r", encoding="utf8") as fh:
-                header = [x.strip() for x in fh.readline().split(",")]
-                h2 = fh.readline()
-                numbers = [0] * len(header)
-                for line in fh.readlines():
-                    cols = line.split(",")
-                    fn = lambda x: 1 if x.strip() else 0
-                    cant = map(fn, cols)
-                    numbers = [sum(x) for x in zip(numbers, cant)]
-            return zip(header, numbers)
-        else:
-            return False
 
     def show_cache(self):
         def sub_dir(name, path):
             for filename in path.iterdir():
                 key = f"{name}-{filename.suffix}"
-                if key in data:
-                    data[key] += 1
-                else:
-                    data[key] = 1
+                data[key] = data.get(key, 0) + 1
 
         data = {}
         sub_dir("outbox", self.outbox)
@@ -184,38 +175,6 @@ class Job(object):
         return [(h, data[h]) for h in header]
 
 
-class JobFolder(object):
-    """To manage subfolders into data folder."""
-
-    def __init__(self, job, path):
-        """Creates the subfolder, if it's needed."""
-        self.job = job
-        self.name = path
-        self.path = ensure_dir_exists(job.path.joinpath(path))
-
-    def add(self, filepath):
-        """Add (copy) a new file into the folder"""
-        for filename in filepath:
-            dst = self.path.joinpath(Path(filename).name)
-            shutil.copyfile(filename, dst)
-            click.echo(f"Added as {self.name} {dst.name}")
-
-    def remove(self, filename):
-        """Remove a file from the subfolder"""
-        dst = self.path.joinpath(filename)
-        dst.unlink()
-        click.echo(f"Removed from {self.name} {dst.name}")
-
-    def list(self):
-        """Returns the list of files into the folder"""
-        return [f.name for f in self.path.iterdir()]
-
-    def __str__(self):
-        s = self.name + ": \n  - "
-        if self.list():
-            return s + "\n  - ".join(self.list())
-        else:
-            return s + "none"
 
 
 jobs = Jobs()

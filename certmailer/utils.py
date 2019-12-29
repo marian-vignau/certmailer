@@ -17,9 +17,13 @@
 # For further info, check
 
 __author__ = "María Andrea Vignau"
+from _collections import OrderedDict
 import yaml
 import mimetypes
 import base64
+import socket
+
+REMOTE_SERVER = "www.google.com"
 
 
 def load_yml(filepath):
@@ -52,3 +56,31 @@ def load_attachment(file, add_id=False):
         if add_id:
             attachment["ContentID"] = file.stem
     return attachment
+
+
+def is_connected():
+    try:
+        # see if we can resolve the host name -- tells us if there is
+        # a DNS listening
+        host = socket.gethostbyname(REMOTE_SERVER)
+        # connect to the host -- tells us if the host is actually
+        # reachable
+        s = socket.create_connection((host, 80), 2)
+        s.close()
+        return True
+    except:
+        pass
+    return False
+
+
+class Stats(dict):
+    def count(self, name):
+        self[name] = self.get(name, 0) + 1
+
+    def __str__(self):
+        return "\n".join([f"{h:>20}:{c}" for h, c in self.items()])
+
+import fs
+import uuid
+def create_memory_file():
+    temp_name = uuid.uuid4().hex
