@@ -21,13 +21,18 @@ __author__ = "María Andrea Vignau"
 # guide in https://dev.mailjet.com/guides/?python#send-with-attached-files
 
 import re
+
 import yaml
 
-import click
-from .utils import load_yml, save_yml, load_attachment
+from .utils import load_yml, load_attachment
 
-class Template():
+
+class Template:
+    """Creates the email template data structure from
+    job's files."""
+
     def __init__(self, job):
+        """Initializa data structure."""
         self.job = job
         config = load_yml(job.relative_path("config.yml"))
         self.data = {
@@ -45,19 +50,19 @@ class Template():
         """Append inline attachments to email html"""
         newinline = []
         for file in attach_path.glob(file_stem + ".*"):
-            newinline.append(load_attachment(file, add_id=True))
+            newinline.append(load_attachment(file, add_cid=True))
         return newinline
 
     def format(self, replace_info):
+        """Replace fields with correspondent email receiver data."""
         temp = yaml.safe_dump(self.data)
         data = self.job.config.copy()
         data.update(replace_info)
         temp = temp.format(**data)
         return yaml.safe_load(temp)
 
-
     def _default_attachments(self, attach_path):
-        """Append default attachments to email html"""
+        """Append default attachments to email html."""
         self.data["Attachments"] = []
         attached = []
         for file in attach_path.iterdir():
@@ -85,8 +90,6 @@ class Template():
         return missed, added
 
     def _load(self, filename):
-        """Loads a text file located in job's data folder"""
+        """Loads a text file located in job's data folder."""
         with self.job.relative_path(filename).open(encoding="utf8") as fh:
             return fh.read()
-
-

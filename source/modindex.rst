@@ -4,11 +4,11 @@ Modules
 .. automodule:: certmailer.jobs
    :members:
 
-.. automodule:: certmailer.make_template
+.. automodule:: certmailer.gen_mail
    :members:
 
-.. automodule:: certmailer.make_pdf
+.. automodule:: certmailer.receivers
    :members:
 
-.. automodule:: certmailer.send_mails
+.. automodule:: certmailer.eventoL_import
    :members:

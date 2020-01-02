@@ -17,9 +17,14 @@
 # For further info, check
 
 __author__ = "María Andrea Vignau"
-from . import ensure_dir_exists
+
 import shutil
+from pathlib import Path
+
 import click
+
+from . import ensure_dir_exists
+
 
 class JobFolder(object):
     """To manage subfolders into data folder."""

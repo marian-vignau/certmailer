@@ -17,18 +17,18 @@
 # For further info, check
 
 __author__ = "María Andrea Vignau"
-import shutil
-from pathlib import Path
-import zipfile
-from pkg_resources import resource_stream
 
-import click
+import shutil
+import zipfile
+from pathlib import Path
+
+from pkg_resources import resource_stream
 
 from . import base
 from . import ensure_dir_exists
-from .utils import load_yml, save_yml
-from .receivers import Receivers
 from .jobfolder import JobFolder
+from .receivers import Receivers
+from .utils import load_yml, save_yml
 
 
 class Jobs(object):
@@ -41,6 +41,11 @@ class Jobs(object):
         self._current_job = None
         if current:
             self._current_job = Job(current)
+
+    @property
+    def key_pair(self):
+        self.config = load_yml(base.config_path)
+        return self.config.get("api_key", ""), self.config.get("secret_key", "")
 
     def list(self):
         """List all the jobs."""
@@ -93,7 +98,7 @@ class Jobs(object):
 class Job(object):
     """Creates and access one job."""
 
-    def __init__(self, name: str, job_data: dict={}):
+    def __init__(self, name: str, job_data: dict = None):
         """Configure a job"""
         self.name = name
         self.path = ensure_dir_exists(base.data_basedir.joinpath(name))
@@ -101,7 +106,7 @@ class Job(object):
         if self.config_path.exists():
             self.config = load_yml(self.config_path)
         else:
-            self.config = job_data
+            self.config = job_data if job_data is not None else {}
             self.config["name"] = name
             template_zip = resource_stream(__name__, "template.zip")
             zip_ref = zipfile.ZipFile(template_zip, "r")
@@ -120,9 +125,9 @@ class Job(object):
         self.attach = JobFolder(self, "attach")
         self.data = JobFolder(self, "data")
 
-
-        #self.cache = ensure_dir_exists(base.cache_basedir.joinpath(name))
-        path = Path("/dev/shm")
+        path = Path("/dev/shm")  # in memory filepath
+        if not path.exists():
+            path = base.cache_basedir
         self.cache = ensure_dir_exists(path.joinpath(name))
 
         self.outbox = ensure_dir_exists(self.cache.joinpath("outbox"))
@@ -160,8 +165,9 @@ class Job(object):
         s.extend(["path", str(self.cache)])
         return "\n".join(s)
 
-
     def show_cache(self):
+        """Show how many files of each extension exists in cache."""
+
         def sub_dir(name, path):
             for filename in path.iterdir():
                 key = f"{name}-{filename.suffix}"
@@ -173,8 +179,6 @@ class Job(object):
         header = list(data.keys())
         header.sort()
         return [(h, data[h]) for h in header]
-
-
 
 
 jobs = Jobs()

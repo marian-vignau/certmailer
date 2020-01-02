@@ -60,7 +60,7 @@ Add them using
 
 Create the list of recipients
 
-> certmail do list
+> certmail import
 
 this will parse the yaml files exported from **EventoL**, and create a
 csv.
@@ -99,32 +99,32 @@ Edit certificate in InkScape
 
 > certmail edit certificate
 
-Create the template
-
-> certmail do template
 
 Run everything
 ==============
 
-> certmail do certificates
+> certmail send
 
-This will create the certificates pdf to send, and yaml files with
-all the info of every mail that will be sent.
+This will create the certificates pdf to send, 
 All the information will be stored on the «cache//outbox» directory.
 
-> certmail do send
-
 This will send every mail. If an email is successfully sent, all it's
-
 data'll move to «cache//sent» folder, and a json with information of
 resulting email will be stored.
+
+In linux systems, uses memory to store intermediate results, to speed up and 
+to better use hard disks.
+
+> certmail send --flag <flag>
+
+The flag is used to send **only** the emails that are flagged in the send column
+with the word <flag>. 
 
 Requirements
 ============
 
 -  Python 3
 -  PyYaml
--  certg
 -  mailjet-rest
 -  click
 

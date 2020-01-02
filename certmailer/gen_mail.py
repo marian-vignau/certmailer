@@ -18,32 +18,40 @@
 
 __author__ = "María Andrea Vignau"
 import shutil
+
 from mailjet_rest import Client
+
 from .gen_pdf import GenPDF
-from .utils import load_attachment
 from .jobs import jobs
-import yaml
+from .utils import load_attachment
 
 
-class GenMail():
+class GenMail:
+    """Generates all the PDF and Emails"""
+
     def __init__(self, job, template):
+        """Create and sends mails"""
         self.job = job
+        self.template = template
+        svg_certificate = self.job.relative_path("certificate.svg")
+        self.genpdf = GenPDF(svg_certificate)
+        self.error = []
+        # keys = (jobs.config["api_key"], jobs.config["secret_key"])
+        self.mailjet = Client(auth=jobs.key_pair, version="v3.1")
         self.total_mails = 0
         self.total_certificates = 0
-        self.template = template
-        self.genpdf = GenPDF(self.job.relative_path("certificate.svg"))
-        self.error = []
-        keys = (jobs.config["api_key"], jobs.config["secret_key"])
-        self.mailjet = Client(auth=keys, version="v3.1")
 
     @classmethod
     def get_filename(cls, email, certificate=""):
+        """Creates a filename for certificate"""
         filename = email.replace("@", "_").replace(".", "-")
         if certificate:
             filename += "-" + certificate + ".pdf"
         return filename.lower()
 
     def process(self, receiver):
+        """Creates PDF certificates, and
+        prepares email replacing variables in templates"""
         data = receiver.data
         message = self.template.format(data)
         for certificate in data["certificates"]:
@@ -71,4 +79,3 @@ class GenMail():
             shutil.move(src=str(src), dst=str(dst))
             self.total_certificates += 1
         self.total_mails += 1
-

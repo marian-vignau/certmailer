@@ -20,29 +20,47 @@ import subprocess
 import tempfile
 import uuid
 
-class GenPDF():
+
+class GenPDF:
+    """Adapted """
+
     def __init__(self, svg_source, images=None):
-        with open(svg_source, "rt", encoding='utf8') as fh:
-            content_base = fh.read()
+        """Every process maked one time, at start of object."""
+        with open(svg_source, "rt", encoding="utf8") as fh:
+            self.content_base = fh.read()
 
         if images is not None:
             for image in images:
-                place_id = image['placement_rectangle_id']
-                content_base, replacement_variable = self._pre_process_image(content_base, place_id)
-                image['replacement_variable'] = replacement_variable
-        self.content_base = content_base
+                place_id = image["placement_rectangle_id"]
+                self.content_base, replacement_variable = self._pre_process_image(
+                    self.content_base, place_id
+                )
+                image["replacement_variable"] = replacement_variable
         self.images = images
 
     def _get_gs_cmd(self, srcpath, dstpath):
         """Build the command for Ghoscript to optimize a PDF."""
         cmd = [
-            '/usr/bin/gs', '-sDEVICE=pdfwrite', '-dCompatibilityLevel=1.4', '-dPDFSETTINGS=/default',
-            '-dNOPAUSE', '-dBATCH', '-dQUIET', '-sOutputFile={}'.format(dstpath), srcpath]
+            "/usr/bin/gs",
+            "-sDEVICE=pdfwrite",
+            "-dCompatibilityLevel=1.4",
+            "-dPDFSETTINGS=/default",
+            "-dNOPAUSE",
+            "-dBATCH",
+            "-dQUIET",
+            "-sOutputFile={}".format(dstpath),
+            srcpath,
+        ]
         return cmd
 
     def _get_inkscape_cmd(self, srcpath, dstpath):
         """Build the command for Inkscape to convert the SVG into PDF."""
-        cmd = ['inkscape', '--export-text-to-path', '--export-pdf={}'.format(dstpath), srcpath]
+        cmd = [
+            "inkscape",
+            "--export-text-to-path",
+            "--export-pdf={}".format(dstpath),
+            srcpath,
+        ]
         return cmd
 
     def _pre_process_image(self, content, place_id):
@@ -55,7 +73,11 @@ class GenPDF():
                 # not the object we were searching for mutation, return the original sequence
                 return match.string[slice(*match.span())]
 
-            params = [p for p in params if p.startswith(("id=", "width=", "height=", "x=", "y="))]
+            params = [
+                p
+                for p in params
+                if p.startswith(("id=", "width=", "height=", "x=", "y="))
+            ]
             params.append('xlink:href="file://{}"'.format(replace_var))
             params.append('preserveAspectRatio="none"')
             return "<image {} />".format(" ".join(params))
@@ -63,9 +85,7 @@ class GenPDF():
         content = re.sub("<rect(.*?)>", mutate, content, flags=re.DOTALL)
         return content, replace_var
 
-
-    def process(self, result_filename, replace_info,
-            pdf_optimized=False):
+    def process(self, result_filename, replace_info, pdf_optimized=False):
         """
         Gen PDF. PDF is from a key in replace_info, replacing data into the
         svg_source, and naming each PDF according to result_*.
@@ -84,24 +104,21 @@ class GenPDF():
         # replace image, if any
         if self.images is not None:
             for image in self.images:
-                image_path_variable = image['path_variable']
+                image_path_variable = image["path_variable"]
                 image_path = os.path.abspath(replace_info[image_path_variable])
-                replacement_variable = image['replacement_variable']
+                replacement_variable = image["replacement_variable"]
                 content = content.replace(replacement_variable, image_path)
 
         # write the new svg
-        _, tmpfile = tempfile.mkstemp(suffix='.svg')
-        with open(tmpfile, "wt", encoding='utf8') as fh:
+        _, tmpfile = tempfile.mkstemp(suffix=".svg")
+        with open(tmpfile, "wt", encoding="utf8") as fh:
             fh.write(content)
 
         # generate PDF
         final_pdf = "{}.pdf".format(result_filename)
+        pdf_by_gs = pdf_by_inkscape = final_pdf
         if pdf_optimized:
-            _, pdf_by_inkscape = tempfile.mkstemp(suffix='.pdf')
-            pdf_by_gs = final_pdf
-        else:
-            # inkscape generates directly the final PDF
-            pdf_by_inkscape = final_pdf
+            _, pdf_by_inkscape = tempfile.mkstemp(suffix=".pdf")
 
         cmd = self._get_inkscape_cmd(tmpfile, pdf_by_inkscape)
         subprocess.check_call(cmd)

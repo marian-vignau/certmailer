@@ -51,9 +51,9 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="certmailer",
-    version="1.1",
+    version="1.5",
     py_modules=["certmailer"],
-    install_requires=["PyYaml", "mailjet_rest", "certg", "appdirs", "click"],
+    install_requires=["PyYaml", "mailjet_rest", "appdirs", "click"],
     entry_points="""
         [console_scripts]
         certmail=certmail:cli

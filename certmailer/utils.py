@@ -17,11 +17,12 @@
 # For further info, check
 
 __author__ = "María Andrea Vignau"
-from _collections import OrderedDict
-import yaml
-import mimetypes
+
 import base64
+import mimetypes
 import socket
+
+import yaml
 
 REMOTE_SERVER = "www.google.com"
 
@@ -43,8 +44,8 @@ def save_yml(filepath, new_data):
         fh.write(yaml.safe_dump(data))
 
 
-def load_attachment(file, add_id=False):
-    """"""
+def load_attachment(file, add_cid=False):
+    """Creates a dict to describe a file attached."""
     # open binary file in read mode
     with file.open("rb") as fh:  # open binary file in read mode
         file_64_encode = base64.standard_b64encode(fh.read())
@@ -53,12 +54,13 @@ def load_attachment(file, add_id=False):
             "Filename": file.name,
             "Base64Content": file_64_encode.decode("ascii"),
         }
-        if add_id:
+        if add_cid:
             attachment["ContentID"] = file.stem
     return attachment
 
 
 def is_connected():
+    """Test if exists a working internet connection."""
     try:
         # see if we can resolve the host name -- tells us if there is
         # a DNS listening
@@ -80,7 +82,29 @@ class Stats(dict):
     def __str__(self):
         return "\n".join([f"{h:>20}:{c}" for h, c in self.items()])
 
-import fs
-import uuid
-def create_memory_file():
-    temp_name = uuid.uuid4().hex
+
+MAXCOLWIDTH = 30
+
+
+class Table:
+    """Auxiliar to print table using command line"""
+
+    def __init__(self):
+        self.lenghts = {}
+        self.data = []
+
+    def add(self, data):
+        """Append a new row to the table and calculate needed column widths"""
+        fn = lambda k: min(MAXCOLWIDTH, max([len(str(data[k])), self.lenghts.get(k, 0)]))
+        lenghts = {k: fn(k) for k in data.keys()}
+        self.lenghts.update(lenghts)
+        self.data.append(data)
+
+    def __str__(self):
+        """Output the table"""
+        fill = lambda s, n, c: (s + c * (n - len(s)))[:n]
+        table = ["|".join([fill(k, v, "_") for k, v in self.lenghts.items()])]
+        for row in self.data:
+            s = "|".join([fill(str(row.get(k, "")), v, " ") for k, v in self.lenghts.items()])
+            table.append(s)
+        return '\n'.join(table)

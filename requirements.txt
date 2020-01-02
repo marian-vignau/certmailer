@@ -1,5 +1,4 @@
 PyYaml
-certg
 appdirs
 mailjet_rest
 click

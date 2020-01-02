@@ -22,12 +22,12 @@ import sys
 
 import click
 
-from .jobs import jobs
-from .receivers import Receivers
 from .eventoL_import import MyList
-from .make_template import Template
 from .gen_mail import GenMail
-from .utils import save_yml, is_connected
+from .jobs import jobs
+from .make_template import Template
+from .receivers import Receivers
+from .utils import is_connected, Table
 
 
 @click.group()
@@ -93,6 +93,7 @@ def need_current_job(func):
             sys.exit(1)
         print("ok")
         func(*args, **kargs)
+
     return inner
 
 
@@ -114,38 +115,45 @@ def impo():
 
 @need_current_job
 @cli.command()
-def send():
+@click.option("--flag", default="", help="Flag that mark receivers.")
+def send(flag):
     """Send all the mails."""
     if not is_connected():
         click.echo("You need to be connected to Internet")
         sys.exit(1)
     template = Template(jobs.current_job)
     if template.missed:
-        click.echo("Error: Missing inline attachments referenced " + ", ".join(template.missed))
+        click.echo(
+            "Error: Missing inline attachments referenced " + ", ".join(template.missed)
+        )
         sys.exit(1)
     receivers = Receivers(jobs.current_job)
-    to_send = receivers.mails_to_send
+    to_send = receivers.mails_to_send(flag)
     if not to_send:
         click.echo("Error: No mails to send")
         sys.exit(1)
     else:
         sender = GenMail(jobs.current_job, template)
-        prog = click.progressbar(length=receivers.mails_to_send)
-        for receiver in receivers.read():
-            if receiver:
-                result = sender.sendmail(receiver)
-                prog.update(1)
-                if result.status_code == 200:
-                    sender.move_to_sent(receiver)
+        prog = click.progressbar(length=to_send)
+        for receiver in receivers.read(flag):
+            result = sender.sendmail(receiver)
+            prog.update(1)
+            if result.status_code == 200:
+                sender.move_to_sent(receiver)
         click.echo(f"\nTotal {sender.total_mails} mails sent")
         click.echo(f"Total {sender.total_certificates} certificates sent")
 
 
 @need_current_job
 @cli.command()
-def show():
+@click.option("--flag", default="", help="Flag that mark receivers.")
+def show(flag):
     """List all the mails."""
     receivers = Receivers(jobs.current_job)
     if receivers.exists():
-        for receiver in receivers.read():
-            click.echo(receiver)
+        table = Table()
+        for receiver in receivers.read(flag):
+            table.add(receiver.data)
+        click.echo(str(table))
+    to_send = receivers.mails_to_send(flag)
+    click.echo(f"Total {to_send} receivers.")

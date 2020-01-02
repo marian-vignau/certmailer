@@ -20,29 +20,31 @@ __author__ = "María Andrea Vignau"
 
 import csv
 
-from .jobfolder import JobFolder
 
+class Receiver:
+    """Represents an email receiver."""
 
-class Receiver():
     def __init__(self, email: str = None, values: dict = None):
-        self.data = {
-            "certificates": [],
-            "send": "send",
-            "attach": []
-        }
+        """Starts with default data"""
+        self.data = {"certificates": [], "send": "send", "attach": []}
         if email:
             self.data["email"] = email
         if values:
             self.data.update(values)
 
     def to_row(self, fieldnames: list):
+        """Extract data from internal structures and put in a csv's row."""
         row = {k: self.data.get(k, "") for k in fieldnames}
-        row["name"] = f'{self.data.get("first_name", "")} {self.data.get("last_name", "")}'
+        row[
+            "name"
+        ] = f'{self.data.get("first_name", "")} {self.data.get("last_name", "")}'
         for k in self.data["certificates"]:
-            row[k] = "yes"
+            if k in fieldnames:
+                row[k] = "yes"
         return row
 
     def from_row(self, row):
+        """Reads a csv's row and complete the receiver's data."""
         in_certificates = False
         for k, v in row.items():
             if "send" in k:
@@ -55,28 +57,40 @@ class Receiver():
         return self
 
     def add_generated(self, filename):
+        """Add a newly generated attached file."""
         self.data["attach"].append(filename)
 
-    def __bool__(self):
-        return bool(self.data["send"])
+    def is_flag(self, flag=""):
+        if not "send" in self.data:
+            return True
+        if not flag:
+            return bool(self.data["send"].strip())
+        else:
+            return self.data["send"].strip() == flag.lower()
 
     def __str__(self):
-        return "--\n" + '\n'.join([f"{k}:{str(v)}" for k,v in self.data.items()])
+        return "--\n" + "\n".join([f"{k:>20}:{str(v)}" for k, v in self.data.items()])
 
 
-class Receivers(JobFolder):
+class Receivers:
     """Persists in a csv the data collected from receivers"""
+
     def __init__(self, job):
         self.job = job
         self._filename = job.relative_path("receivers.csv")
 
-    def read(self):
-        """Reads every receiver"""
-        with self._filename.open("r", encoding="utf8") as fh:
-            reader = csv.DictReader(fh)
-            self.header = reader.fieldnames
-            for row in reader:
-                yield Receiver().from_row(row)
+    def read(self, flag=""):
+        """Reads every receiver, a create receiver object."""
+        if not self.exists():
+            return False
+        else:
+            with self._filename.open("r", encoding="utf8") as fh:
+                reader = csv.DictReader(fh)
+                self.header = reader.fieldnames
+                for row in reader:
+                    receiver = Receiver().from_row(row)
+                    if receiver.is_flag(flag):
+                        yield receiver
 
     def write(self, do):
         """Writes receivers collected. It may use eventoL exported files"""
@@ -92,25 +106,30 @@ class Receivers(JobFolder):
                 writer.writerow(row)
 
     def exists(self):
+        """If receivers' csv is created."""
         return self._filename.exists()
 
     @property
     def filename(self):
+        """Name of receivers' csv file"""
         return self._filename
 
     def __len__(self):
+        """How many rows there are in csv"""
         if self.exists():
             return len(self.filename.open().readlines()) - 1
         else:
             return None
 
     def describe(self):
+        """Describe de csv, put every column and how many cell has values in it."""
         if self.exists():
             with self._filename.open("r", encoding="utf8") as fh:
                 reader = csv.reader(fh)
                 header = next(reader)
                 numbers = [0] * len(header)
                 fn = lambda x: 1 if x.strip() else 0
+                self.send_flags = {}
                 for cols in reader:
                     cant = map(fn, cols)
                     numbers = [sum(x) for x in zip(numbers, cant)]
@@ -118,11 +137,31 @@ class Receivers(JobFolder):
         else:
             return False
 
-    @property
-    def mails_to_send(self):
-        totals = self.describe()
-        if totals:
-            for k, v in totals:
-                if "send" in k:
-                    return v
-        return 0
+    def send_flags(self):
+        """Check how many mails will be sent, group by flag.
+        TOTAL is a special flag, meaning the grand total."""
+        flags_data = {}
+        if not self.exists():
+            flags_data["TOTAL"] = 0
+        else:
+            with self._filename.open("r", encoding="utf8") as fh:
+                reader = csv.reader(fh)
+                header = next(reader)
+
+                # finds the col headed send
+                send_col = list(map(lambda x: "send" in x.lower(), header))
+                send_col = send_col.index(True)
+                if not send_col:
+                    flags_data["TOTAL"] = len(self)
+                else:
+                    for cols in reader:
+                        flag = cols[send_col].lower().strip()
+                        flags_data[flag] = flags_data.get(flag, 0) + 1
+                    flags_data["TOTAL"] = sum([v for v in flags_data.values()])
+        return flags_data
+
+    def mails_to_send(self, flag="TOTAL"):
+        """Calculates how many emails will be sent."""
+        if not flag:
+            flag = "TOTAL"
+        return self.send_flags().get(flag, 0)

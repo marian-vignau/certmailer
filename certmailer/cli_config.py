@@ -18,19 +18,19 @@
 
 __author__ = "María Andrea Vignau"
 import click
-from .utils import load_yml, save_yml
+
 from . import base
+from .utils import load_yml, save_yml
 
 
 class KeyString(click.ParamType):
     name = "integer"
 
     def convert(self, value, param, ctx):
-        error = "You must enter the provided key, a 32 digits hex number."
         try:
             value = value.strip().lower()
             if len(value) == 32:
-                n = int(value, 16)
+                _ = int(value, 16)
                 return value
         except TypeError:
             pass

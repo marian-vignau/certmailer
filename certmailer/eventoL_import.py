@@ -21,14 +21,12 @@
 Create a csv list of candidates to do a certificate
 """
 
+import unicodedata
+from datetime import datetime
 
 import yaml
-from datetime import datetime
-import unicodedata
+
 from .utils import Stats
-
-
-
 
 
 class MyList(object):
@@ -114,7 +112,7 @@ class MyList(object):
 
         if not cert_event is None:
             # add a certificate related to the event to this person certificates
-            certificate = (cert_event, category)
+            certificate = category
             certificates_lists = self.list[email]["certificates"]
             if certificate and not certificate in certificates_lists:
                 self.stats.count("certificated added type " + category)
