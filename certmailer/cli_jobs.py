@@ -94,7 +94,8 @@ def attach():
 @click.argument("filenames", nargs=-1, type=click.Path(exists=True, resolve_path=True))
 def add(filenames):
     """Add a fixed attachment"""
-    jobs.current_job.attach.add(filenames)
+    msgs = jobs.current_job.attach.add(filenames)
+    click.echo('\n'.join(msgs))
     click.echo(
         "Use like <img src='cid:the_name_of_file_without_extension'> on >> certmailer edit html"
     )
@@ -105,8 +106,8 @@ def add(filenames):
 def remove(filename):
     """Removes a fixed attachment"""
     if jobs.current_job and filename in jobs.current_job.attach.list():
-        jobs.current_job.attach.remove(filename)
-
+        msg = jobs.current_job.attach.remove(filename)
+        click.echo(msg)
 
 @attach.command()
 def list():
@@ -132,7 +133,8 @@ def list():
 @click.argument("filenames", nargs=-1, type=click.Path(exists=True, resolve_path=True))
 def add(filenames):
     """Add a data source to current job."""
-    jobs.current_job.data.add(filenames)
+    msgs = jobs.current_job.data.add(filenames)
+    click.echo('\n'.join(msgs))
 
 
 @data.command()
@@ -140,7 +142,8 @@ def add(filenames):
 def remove(filename):
     """Remove a data source from current job."""
     if jobs.current_job and filename in jobs.current_job.data.list():
-        jobs.current_job.data.remove(filename)
+        msg = jobs.current_job.data.remove(filename)
+        click.echo(msg)
     else:
         click.echo("The file wasn't find in the list of attached. Any mistake?")
         click.echo(jobs.current_job.data)

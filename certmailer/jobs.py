@@ -26,7 +26,6 @@ from pkg_resources import resource_stream
 
 from . import base
 from . import ensure_dir_exists
-from .jobfolder import JobFolder
 from .receivers import Receivers
 from .utils import load_yml, save_yml
 
@@ -179,6 +178,42 @@ class Job(object):
         header = list(data.keys())
         header.sort()
         return [(h, data[h]) for h in header]
+
+
+class JobFolder(object):
+    """To manage subfolders into data folder."""
+
+    def __init__(self, job, path):
+        """Creates the subfolder, if it's needed."""
+        self.job = job
+        self.name = path
+        self.path = ensure_dir_exists(job.path.joinpath(path))
+
+    def add(self, filepath):
+        """Add (copy) a new file into the folder"""
+        msgs = []
+        for filename in filepath:
+            dst = self.path.joinpath(Path(filename).name)
+            shutil.copyfile(filename, dst)
+            msgs.append(f"Added as {self.name} {dst.name}")
+        return msgs
+
+    def remove(self, filename):
+        """Remove a file from the subfolder"""
+        dst = self.path.joinpath(filename)
+        dst.unlink()
+        return f"Removed from {self.name} {dst.name}"
+
+    def list(self):
+        """Returns the list of files into the folder"""
+        return [f.name for f in self.path.iterdir()]
+
+    def __str__(self):
+        s = self.name + ": \n  - "
+        if self.list():
+            return s + "\n  - ".join(self.list())
+        else:
+            return s + "none"
 
 
 jobs = Jobs()

@@ -20,20 +20,22 @@ __author__ = "María Andrea Vignau"
 
 """
 Used to create a command-line tool with setup tools
--- Add path to venv into PyCharm
+- Add path to venv into PyCharm
        - Project Settings/Project Interpreter/<right click on gear icon>
         /Show all/<click on dirtree icon>
         /<click on add icon>/
         select the path of current tools project
--- Go to command prompt, navigate to current project subfolder
--- Activate virtualenv,
+- Go to command prompt, navigate to current project subfolder
+- Activate virtualenv,
 >>> virtualenv venv
 >>> . venv/bin/activate
 >>> pip install --editable .
--- Install actual module in develop mode
+- Install actual module in develop mode
 >>> python setup.py develop --no-deps
--- Use on console
+## Use on console
 >>> certmailer --help
+
+## Update pypi package
 >>> pip install --user --upgrade setuptools wheel
 >>> python3 setup.py sdist bdist_wheel
 >>> twine upload --repository-url https://test.pypi.org/legacy/ dist/*
@@ -51,7 +53,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="certmailer",
-    version="1.5",
+    version="2.0.0",
     py_modules=["certmailer"],
     install_requires=["PyYaml", "mailjet_rest", "appdirs", "click"],
     entry_points="""

@@ -29,18 +29,19 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.0734524"
-     inkscape:cx="354.27537"
-     inkscape:cy="358.02279"
+     inkscape:cx="588.27013"
+     inkscape:cy="354.2965"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:snap-global="false"
-     showguides="false"
+     showguides="true"
      inkscape:window-width="1920"
-     inkscape:window-height="1029"
+     inkscape:window-height="1053"
      inkscape:window-x="0"
-     inkscape:window-y="1080"
-     inkscape:window-maximized="1" />
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:guide-bbox="true" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -66,12 +67,12 @@
        id="rect1097"
        style="opacity:1;vector-effect:none;fill:#00ffff;fill-opacity:1;stroke:none;stroke-width:0.78187686;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     <rect
-       style="opacity:1;vector-effect:none;fill:#ddff55;fill-opacity:1;stroke:none;stroke-width:0.9434185;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;vector-effect:none;fill:#ddff55;fill-opacity:1;stroke:none;stroke-width:1.10719597;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect1074"
        width="129.30823"
-       height="107.12579"
+       height="147.54832"
        x="160.05798"
-       y="143.28969" />
+       y="126.03617" />
     <flowRoot
        xml:space="preserve"
        id="flowRoot825"
@@ -158,7 +159,7 @@
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#ffffff" /></flowRegion><flowPara
            id="flowPara859">CLI Edit Run</flowPara></flowRoot>    </g>
     <rect
-       y="178.60063"
+       y="177.72287"
        x="94.863571"
        height="44.520176"
        width="56.2514"
@@ -201,7 +202,8 @@
              height="147.18864"
              width="233.825"
              id="rect883" /></flowRegion><flowPara
-           id="flowPara887">Make CSV</flowPara></flowRoot>    </g>
+           id="flowPara887">Receivers</flowPara><flowPara
+           id="flowPara880">Receiver</flowPara></flowRoot>    </g>
     <g
        id="g1126"
        transform="translate(0,2.9577465)">
@@ -225,10 +227,11 @@
              x="38.194523"
              y="54.031292"
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#ffffff" /></flowRegion><flowPara
-           id="flowPara897">Make PDF</flowPara></flowRoot>    </g>
+           id="flowPara897">EventoL</flowPara><flowPara
+           id="flowPara878">import</flowPara></flowRoot>    </g>
     <g
        id="g1111"
-       transform="translate(0,-0.4929657)">
+       transform="translate(0,-19.393875)">
       <rect
          y="149.69815"
          x="227.92641"
@@ -252,7 +255,7 @@
            id="flowPara907">Make Template</flowPara></flowRoot>    </g>
     <g
        id="g1119"
-       transform="translate(0.68754578,1.7253704)">
+       transform="translate(0.68754578,27.66266)">
       <rect
          style="opacity:1;vector-effect:none;fill:#338000;fill-opacity:1;stroke:none;stroke-width:0.79373121;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
          id="rect911"
@@ -273,31 +276,10 @@
              x="38.194523"
              y="54.031292"
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#ffffff" /></flowRegion><flowPara
-           id="flowPara917">Send</flowPara><flowPara
+           id="flowPara917">Gen</flowPara><flowPara
            id="flowPara921">Mails</flowPara></flowRoot>    </g>
-    <rect
-       y="174.5925"
-       x="167.27087"
-       height="20.365246"
-       width="58.223232"
-       id="rect975"
-       style="opacity:1;vector-effect:none;fill:#aa8800;fill-opacity:1;stroke:#ffffff;stroke-width:1.346;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     <flowRoot
-       transform="matrix(0.25285867,0,0,0.25285867,162.72448,164.6882)"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;line-height:125%;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       id="flowRoot983"
-       xml:space="preserve"><flowRegion
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#ffffff"
-         id="flowRegion979"><rect
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#ffffff"
-           y="54.031292"
-           x="38.194523"
-           height="147.18864"
-           width="233.825"
-           id="rect977" /></flowRegion><flowPara
-         id="flowPara981">Create List</flowPara><flowPara
-         id="flowPara1006" /></flowRoot>    <flowRoot
-       transform="matrix(0.25285867,0,0,0.25285867,186.53937,240.28665)"
+       transform="matrix(0.25285867,0,0,0.25285867,187.27881,258.27961)"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;line-height:125%;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        id="flowRoot1172"
        xml:space="preserve"><flowRegion
@@ -309,5 +291,30 @@
            height="45.647114"
            width="710.79077"
            id="rect1166" /></flowRegion><flowPara
-         id="flowPara1170">Main modules</flowPara></flowRoot>  </g>
+         id="flowPara1170">Main modules</flowPara></flowRoot>    <g
+       id="g908"
+       transform="translate(63.185318,28.517687)">
+      <rect
+         style="opacity:1;vector-effect:none;fill:#338000;fill-opacity:1;stroke:none;stroke-width:0.79373121;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect896"
+         width="56.2514"
+         height="44.520176"
+         x="164.74109"
+         y="149.20518" />
+      <flowRoot
+         xml:space="preserve"
+         id="flowRoot906"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;line-height:125%;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         transform="matrix(0.25285867,0,0,0.25285867,158.53434,139.54735)"><flowRegion
+           id="flowRegion900"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#ffffff"><rect
+             id="rect898"
+             width="233.825"
+             height="147.18864"
+             x="38.194523"
+             y="54.031292"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Palanquin Dark';-inkscape-font-specification:'Palanquin Dark';fill:#ffffff" /></flowRegion><flowPara
+           id="flowPara904">Gen</flowPara><flowPara
+           id="flowPara912">PDF</flowPara></flowRoot>    </g>
+  </g>
 </svg>

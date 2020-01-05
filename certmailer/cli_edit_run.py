@@ -28,6 +28,7 @@ from .jobs import jobs
 from .make_template import Template
 from .receivers import Receivers
 from .utils import is_connected, Table
+from .utils import reuse_filename
 
 
 @click.group()
@@ -107,7 +108,8 @@ def impo():
     do = MyList(jobs.current_job)
     receivers = Receivers(jobs.current_job)
     if receivers.exists():
-        click.secho(f"Receivers list exists", fg="red")
+        s = reuse_filename(receivers.filename)
+        click.secho(f"Receivers list exists. Renamed to {str(s)}", fg="red")
     receivers.write(do)
     click.echo(f"Created {receivers.filename}.")
     click.echo("Open to choose mails to send and certificates to generate")
@@ -119,29 +121,33 @@ def impo():
 def send(flag):
     """Send all the mails."""
     if not is_connected():
-        click.echo("You need to be connected to Internet")
+        click.secho("You need to be connected to Internet", fg="red")
         sys.exit(1)
     template = Template(jobs.current_job)
     if template.missed:
-        click.echo(
-            "Error: Missing inline attachments referenced " + ", ".join(template.missed)
+        click.secho(
+            "Error: Missing inline attachments referenced "
+            + ", ".join(template.missed),
+            fg="red",
         )
         sys.exit(1)
     receivers = Receivers(jobs.current_job)
     to_send = receivers.mails_to_send(flag)
     if not to_send:
-        click.echo("Error: No mails to send")
+        click.secho("Error: No mails to send", fg="red")
         sys.exit(1)
     else:
         sender = GenMail(jobs.current_job, template)
         prog = click.progressbar(length=to_send)
         for receiver in receivers.read(flag):
-            result = sender.sendmail(receiver)
+            sender.sendmail(receiver)
             prog.update(1)
-            if result.status_code == 200:
-                sender.move_to_sent(receiver)
+            sender.clean_n_log(receiver)
         click.echo(f"\nTotal {sender.total_mails} mails sent")
         click.echo(f"Total {sender.total_certificates} certificates sent")
+        if sender.unsended_mails != 0:
+            click.secho(f"Total {sender.unsended_mails} mails not sended.", fg="red")
+        click.echo(f"See detailed log file at {sender.log}")
 
 
 @need_current_job

@@ -17,13 +17,13 @@
 # For further info, check
 
 __author__ = "María Andrea Vignau"
-import shutil
 
+import yaml
 from mailjet_rest import Client
 
 from .gen_pdf import GenPDF
 from .jobs import jobs
-from .utils import load_attachment
+from .utils import load_attachment, reuse_filename
 
 
 class GenMail:
@@ -35,11 +35,12 @@ class GenMail:
         self.template = template
         svg_certificate = self.job.relative_path("certificate.svg")
         self.genpdf = GenPDF(svg_certificate)
-        self.error = []
-        # keys = (jobs.config["api_key"], jobs.config["secret_key"])
         self.mailjet = Client(auth=jobs.key_pair, version="v3.1")
         self.total_mails = 0
         self.total_certificates = 0
+        self.unsended_mails = 0
+        self.log = job.sent.joinpath("log.log")
+        reuse_filename(self.log)
 
     @classmethod
     def get_filename(cls, email, certificate=""):
@@ -67,15 +68,26 @@ class GenMail:
         msg = self.process(receiver)
         data = {"Messages": [msg]}
         result = self.mailjet.send.create(data=data)
+        receiver.result = result.json()
+        receiver.data["status_code"] = result.status_code
+        receiver.data["msg"] = msg
         return result
 
-    def move_to_sent(self, receiver):
-        """Moves to other folders sended information"""
+    def clean_n_log(self, receiver):
+        """Clear information and writes the log."""
         data = receiver.data
-        filename = self.get_filename(data["email"])
-        glob = self.job.outbox.glob(f"{filename}-*.pdf")
-        for src in glob:
-            dst = self.job.sent.joinpath(f"{src.name}")
-            shutil.move(src=str(src), dst=str(dst))
-            self.total_certificates += 1
-        self.total_mails += 1
+        if receiver.data["status_code"] == 200:
+            filename = self.get_filename(data["email"])
+            glob = self.job.outbox.glob(f"{filename}-*.pdf")
+            for src in glob:
+                src.unlink()
+                self.total_certificates += 1
+            self.total_mails += 1
+            del receiver.data["msg"]  # don't save debug data it it's ok
+        else:
+            self.unsended_mails += 1
+        sep = "-" * 40 + "\n"
+        with self.log.open("a", encoding="utf8") as fh:
+            fh.write(yaml.safe_dump(receiver.data))
+            fh.write(yaml.safe_dump(receiver.result))
+            fh.write(sep)
