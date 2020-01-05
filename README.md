@@ -1,8 +1,14 @@
 Certificates Mailer
 ===================
 
+[![License](https://img.shields.io/github/license/marian-vignau/certmailer.svg)](https://pypi.python.org/pypi/certmailer)
+[![PyPI Version](http://img.shields.io/pypi/v/certmailer.svg)](https://pypi.python.org/pypi/certmailer)
+[![Twitter Follow](https://img.shields.io/twitter/follow/mavignau?style=social)](https://twitter.com/mavignau)
+![GitHub last commit](https://img.shields.io/github/last-commit/marian-vignau/certmailer)
+
 **Automate** sending event's certificates by email.
 ---------------------------------------------------
+
 
 Uses exported information from **EventoL**,
 generate **certificates in PDF**, and **mail them** to the
@@ -108,9 +114,9 @@ Run everything
 This will create the certificates pdf to send, 
 All the information will be stored on the «cache//outbox» directory.
 
-This will send every mail. If an email is successfully sent, all it's
-data'll move to «cache//sent» folder, and a json with information of
-resulting email will be stored.
+This will send every mail. Every mail sent will be logged. 
+
+If for some reason any mail isn't sended, it will
 
 In linux systems, uses memory to store intermediate results, to speed up and 
 to better use hard disks.

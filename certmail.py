@@ -22,3 +22,6 @@ import certmailer
 
 certmailer.main()
 
+# important: this import MUST BE in LAST LINE
+# to be used at command-line interface
+# "from certmailer.cli import cli"

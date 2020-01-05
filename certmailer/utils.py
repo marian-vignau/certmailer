@@ -84,27 +84,51 @@ class Stats(dict):
 
 
 MAXCOLWIDTH = 30
+MAXWIDTH = 120
 
 
 class Table:
     """Auxiliar to print table using command line"""
 
-    def __init__(self):
+    def __init__(self, maxcolwith=MAXCOLWIDTH, maxwidth=MAXWIDTH):
         self.lenghts = {}
         self.data = []
+        self.fill = lambda s, n, c: (s + c * (n - len(s)))[:n]
 
     def add(self, data):
         """Append a new row to the table and calculate needed column widths"""
-        fn = lambda k: min(MAXCOLWIDTH, max([len(str(data[k])), self.lenghts.get(k, 0)]))
+        fn = lambda k: min(
+            MAXCOLWIDTH, max([len(str(data[k])), self.lenghts.get(k, 0)])
+        )
         lenghts = {k: fn(k) for k in data.keys()}
         self.lenghts.update(lenghts)
         self.data.append(data)
 
-    def __str__(self):
+    def format_header(self, filler="_"):
+        """Format header."""
+        s = [self.fill(k, v, filler) for k, v in self.lenghts.items()]
+        return s
+
+    def format_row(self, row, filler=" "):
+        """Format subsequent rows"""
+        s = [self.fill(str(row.get(k, "")), v, filler) for k, v in self.lenghts.items()]
+        return s
+
+    def __str__(self, separator=";"):
         """Output the table"""
-        fill = lambda s, n, c: (s + c * (n - len(s)))[:n]
-        table = ["|".join([fill(k, v, "_") for k, v in self.lenghts.items()])]
-        for row in self.data:
-            s = "|".join([fill(str(row.get(k, "")), v, " ") for k, v in self.lenghts.items()])
-            table.append(s)
-        return '\n'.join(table)
+        table = [self.format_header()]
+        table.extend([self.format_row(row) for row in self.data])
+        return "\n".join([separator.join(row) for row in table])
+
+
+def reuse_filename(filename):
+    """If the file exists, renames it adding a number."""
+    if filename.exists():
+        n = 0
+        new = filename.parent.joinpath(f"{filename.stem}{n:04}{filename.suffix}")
+        while new.exists():
+            n += 1
+            new = filename.parent.joinpath(f"{filename.stem}{n:04}{filename.suffix}")
+        filename.rename(new)
+        return new
+    return filename
