@@ -26,3 +26,4 @@ certmailer.main()
 # to be used at command-line interface
 # "from certmailer.cli import cli"
 from certmailer.cli import cli
+cli()
